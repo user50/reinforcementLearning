@@ -16,4 +16,7 @@ public class FruitMachine {
         return generator.generate();
     }
 
+    public NormalRandomGenerator getGenerator() {
+        return generator;
+    }
 }

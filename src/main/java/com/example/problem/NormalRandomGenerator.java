@@ -22,4 +22,8 @@ public class NormalRandomGenerator {
 
         return mean + normalRandomValue * dispersion / 6;
     }
+
+    public double getMean() {
+        return mean;
+    }
 }

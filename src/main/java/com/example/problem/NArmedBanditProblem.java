@@ -18,4 +18,18 @@ public class NArmedBanditProblem {
         return machines.get(fruitMachineNumber).pull();
     }
 
+    public int getBest() {
+
+        double maxValue = -Double.MAX_VALUE;
+        int best = 0;
+        for (int i = 0; i<machines.size(); i++) {
+            if (machines.get(0).getGenerator().getMean() > maxValue)
+            {
+                best = i;
+                maxValue = machines.get(0).getGenerator().getMean();
+            }
+        }
+
+        return best;
+    }
 }

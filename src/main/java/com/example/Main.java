@@ -10,24 +10,9 @@ import com.example.problem.NormalRandomGenerator;
 public class Main {
 
     public static void main(String[] args) {
-        int machineNumber = 10;
+        NArmedBanditProblemBuilder builder = new NArmedBanditProblemBuilder(10, new NormalRandomGenerator(0, 1), new NormalRandomGenerator(1, 1));
 
-        NArmedBanditProblemBuilder builder = new NArmedBanditProblemBuilder(machineNumber, new NormalRandomGenerator(0, 3), new NormalRandomGenerator(1,1));
-
-        NArmedBanditProblem problem = builder.build();
-
-        ActionValueFunction actionValueFunction = new ActionValueFunction(machineNumber);
-        Strategy strategy = new Strategy(actionValueFunction, machineNumber, 0.9);
-
-        double totalValue = 0;
-        for (int i = 0; i<2000; i++)
-        {
-            int machine = strategy.getAction();
-            double value = problem.pullHandle(machine);
-            actionValueFunction.adapt(machine, value);
-
-            totalValue += value;
-        }
+        new Simulator(10, 2000, 0.1, builder.build()).simulate();
 
     }
 
