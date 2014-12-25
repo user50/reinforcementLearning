@@ -10,9 +10,12 @@ import com.example.problem.NormalRandomGenerator;
 public class Main {
 
     public static void main(String[] args) {
-        NArmedBanditProblemBuilder builder = new NArmedBanditProblemBuilder(10, new NormalRandomGenerator(0, 1), new NormalRandomGenerator(1, 1));
+        int numberOfActions = 10;
 
-        new Simulator(10, 2000, 0.1, builder.build()).simulate();
+        NArmedBanditProblemBuilder builder = new NArmedBanditProblemBuilder(numberOfActions, new NormalRandomGenerator(0, 1), new NormalRandomGenerator(1, 1));
+        Strategy strategy = new EGreedyStrategy(new ActionValueFunction(numberOfActions), numberOfActions, 0.1);
+
+        new Simulator( 20000, builder.build(), strategy).simulate();
 
     }
 

@@ -1,6 +1,8 @@
 package com.example.problem;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.TreeSet;
 
 /**
  * Created by user50 on 22.12.2014.
@@ -20,16 +22,15 @@ public class NArmedBanditProblem {
 
     public int getBest() {
 
-        double maxValue = -Double.MAX_VALUE;
-        int best = 0;
-        for (int i = 0; i<machines.size(); i++) {
-            if (machines.get(0).getGenerator().getMean() > maxValue)
-            {
-                best = i;
-                maxValue = machines.get(0).getGenerator().getMean();
+        TreeSet<FruitMachine> set = new TreeSet<FruitMachine>(new Comparator<FruitMachine>(){
+            @Override
+            public int compare(FruitMachine o1, FruitMachine o2) {
+                return new Double(o1.getGenerator().getMean()).compareTo(o2.getGenerator().getMean());
             }
-        }
+        });
 
-        return best;
+        set.addAll(machines);
+
+        return machines.indexOf(set.last());
     }
 }
