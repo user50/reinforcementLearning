@@ -1,9 +1,9 @@
-function [value, optimal] = simulateBandit( machine, maxGames, exploration, problem )
+function [value, optimal] = simulateBandit( machine, maxGames, exploration, problem, strategy )
 import com.example.*
 value = zeros(1, maxGames);
 optimal = zeros(1,maxGames);
 
-simulator = Simulator(machine,maxGames,exploration, problem);
+simulator = Simulator(maxGames, problem, strategy);
 result = simulator.simulate();
 
 for i = 1:result.size()
