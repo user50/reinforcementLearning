@@ -1,4 +1,4 @@
-package com.example;
+package com.example.learning;
 
 /**
  * Created by user50 on 25.12.2014.

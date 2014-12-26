@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.learning.Strategy;
 import com.example.problem.NArmedBanditProblem;
 
 import java.util.ArrayList;

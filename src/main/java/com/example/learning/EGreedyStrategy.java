@@ -1,9 +1,9 @@
-package com.example;
+package com.example.learning;
 
 /**
  * Created by user50 on 22.12.2014.
  */
-public class EGreedyStrategy implements Strategy{
+public class EGreedyStrategy implements Strategy {
     private ActionValueFunction actionValueFunction;
     private int numberOfMachine;
     private double explorationProbability;
