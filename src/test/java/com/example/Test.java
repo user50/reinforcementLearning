@@ -22,5 +22,7 @@ public class Test {
 
         optimiser.findOptimal(strategy, stateValueFunction);
 
+        strategy.display();
+
     }
 }

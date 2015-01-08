@@ -2,7 +2,6 @@ package com.example.dp;
 
 
 import com.example.common.*;
-import com.example.dp.statevalue.FindBestActionOperationByStateValueFunction;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
@@ -30,7 +29,7 @@ public class StrategyAccessor<S extends State, A extends Action> {
 
     public boolean access(Strategy<S, A> strategy, StateValueFunction<S> stateValueFunction)
     {
-        FindBestActionOperationByStateValueFunction<S,A> findBestActionOperation = new FindBestActionOperationByStateValueFunction<S, A>(transitionModel, rewardModel, stateValueFunction, gamma );
+        FindBestActionOperation<S,A> findBestActionOperation = new FindBestActionOperation<S, A>(transitionModel, rewardModel, stateValueFunction, gamma );
 
         boolean stable = true;
         for (S state : nonTerminalStates) {

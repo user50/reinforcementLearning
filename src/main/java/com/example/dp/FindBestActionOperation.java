@@ -1,19 +1,18 @@
-package com.example.dp.statevalue;
+package com.example.dp;
 
 import com.example.common.*;
-import com.example.dp.statevalue.AccessActionByStateValueFunction;
 
 /**
  * Created by user50 on 07.01.2015.
  */
-public class FindBestActionOperationByStateValueFunction<S extends State, A extends Action> {
+public class FindBestActionOperation<S extends State, A extends Action> {
 
     TransitionModel<S,A> transitionModel;
     RewardModel<S,A> rewardModel;
     StateValueFunction<S> stateValueFunction;
     double gamma;
 
-    public FindBestActionOperationByStateValueFunction(TransitionModel<S, A> transitionModel, RewardModel<S, A> rewardModel, StateValueFunction<S> stateValueFunction, double gamma) {
+    public FindBestActionOperation(TransitionModel<S, A> transitionModel, RewardModel<S, A> rewardModel, StateValueFunction<S> stateValueFunction, double gamma) {
         this.transitionModel = transitionModel;
         this.rewardModel = rewardModel;
         this.stateValueFunction = stateValueFunction;
@@ -25,7 +24,7 @@ public class FindBestActionOperationByStateValueFunction<S extends State, A exte
         double best = -Double.MAX_VALUE;
         A bestAction = null;
 
-        AccessActionByStateValueFunction<S,A> accessAction = new AccessActionByStateValueFunction<S, A>(stateValueFunction, transitionModel, rewardModel, gamma);
+        AccessAction<S,A> accessAction = new AccessAction<S, A>(stateValueFunction, transitionModel, rewardModel, gamma);
 
         for (A action : transitionModel.getPossibleActions(state))
         {

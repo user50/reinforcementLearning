@@ -1,11 +1,11 @@
-package com.example.dp.statevalue;
+package com.example.dp;
 
 import com.example.common.*;
 
 /**
  * Created by user50 on 06.01.2015.
  */
-public class AccessStateByStateValueFunction<S extends State, A extends Action> {
+public class AccessState<S extends State, A extends Action> {
 
     TransitionModel<S,A> transitionModel;
     RewardModel<S,A> rewardModel;
@@ -13,8 +13,8 @@ public class AccessStateByStateValueFunction<S extends State, A extends Action> 
     StateValueFunction<S> stateValueFunction;
     double gamma;
 
-    public AccessStateByStateValueFunction(TransitionModel<S, A> transitionModel, RewardModel<S, A> rewardModel, Strategy<S, A> strategy,
-                                           StateValueFunction<S> stateValueFunction, double gamma) {
+    public AccessState(TransitionModel<S, A> transitionModel, RewardModel<S, A> rewardModel, Strategy<S, A> strategy,
+                       StateValueFunction<S> stateValueFunction, double gamma) {
         this.transitionModel = transitionModel;
         this.rewardModel = rewardModel;
         this.strategy = strategy;
@@ -22,7 +22,7 @@ public class AccessStateByStateValueFunction<S extends State, A extends Action> 
         this.gamma = gamma;
     }
 
-    public double accessTotalReward(S state, Strategy<S,A> strategy, StateValueFunction<S> stateValueFunction )
+    public double accessTotalReward(S state )
     {
         double expectedTotalReward = 0;
         for (A action : transitionModel.getPossibleActions(state))
