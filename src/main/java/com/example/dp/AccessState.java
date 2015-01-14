@@ -10,11 +10,11 @@ public class AccessState<S extends State, A extends Action> {
     TransitionModel<S,A> transitionModel;
     RewardModel<S,A> rewardModel;
     Strategy<S,A> strategy;
-    StateValueFunction<S> stateValueFunction;
+    UpdatableFunction<S> stateValueFunction;
     double gamma;
 
     public AccessState(TransitionModel<S, A> transitionModel, RewardModel<S, A> rewardModel, Strategy<S, A> strategy,
-                       StateValueFunction<S> stateValueFunction, double gamma) {
+                       UpdatableFunction<S> stateValueFunction, double gamma) {
         this.transitionModel = transitionModel;
         this.rewardModel = rewardModel;
         this.strategy = strategy;
@@ -31,7 +31,7 @@ public class AccessState<S extends State, A extends Action> {
         return expectedTotalReward;
     }
 
-    private double accessAction(S state, A action, StateValueFunction<S> stateValueFunction) {
+    private double accessAction(S state, A action, UpdatableFunction<S> stateValueFunction) {
 
         double expectedTotalReward = 0;
         for (S possibleNextState : transitionModel.getPossibleStates(state, action)) {

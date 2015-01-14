@@ -9,10 +9,10 @@ public class FindBestActionOperation<S extends State, A extends Action> {
 
     TransitionModel<S,A> transitionModel;
     RewardModel<S,A> rewardModel;
-    StateValueFunction<S> stateValueFunction;
+    UpdatableFunction<S> stateValueFunction;
     double gamma;
 
-    public FindBestActionOperation(TransitionModel<S, A> transitionModel, RewardModel<S, A> rewardModel, StateValueFunction<S> stateValueFunction, double gamma) {
+    public FindBestActionOperation(TransitionModel<S, A> transitionModel, RewardModel<S, A> rewardModel, UpdatableFunction<S> stateValueFunction, double gamma) {
         this.transitionModel = transitionModel;
         this.rewardModel = rewardModel;
         this.stateValueFunction = stateValueFunction;

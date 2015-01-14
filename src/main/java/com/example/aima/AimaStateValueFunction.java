@@ -1,6 +1,6 @@
 package com.example.aima;
 
-import com.example.common.StateValueFunction;
+import com.example.common.UpdatableFunction;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by user50 on 06.01.2015.
  */
-public class AimaStateValueFunction implements StateValueFunction<AimaState> {
+public class AimaStateValueFunction implements UpdatableFunction<AimaState> {
 
     Map<AimaState, Double> table = new HashMap<AimaState, Double>();
 

@@ -27,7 +27,7 @@ public class StrategyAccessor<S extends State, A extends Action> {
         this.gamma = gamma;
     }
 
-    public boolean access(Strategy<S, A> strategy, StateValueFunction<S> stateValueFunction)
+    public boolean access(Strategy<S, A> strategy, UpdatableFunction<S> stateValueFunction)
     {
         FindBestActionOperation<S,A> findBestActionOperation = new FindBestActionOperation<S, A>(transitionModel, rewardModel, stateValueFunction, gamma );
 

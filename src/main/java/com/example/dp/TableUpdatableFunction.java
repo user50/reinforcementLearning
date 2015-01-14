@@ -1,7 +1,7 @@
 package com.example.dp;
 
 import com.example.common.State;
-import com.example.common.StateValueFunction;
+import com.example.common.UpdatableFunction;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,11 +9,11 @@ import java.util.Map;
 /**
  * Created by user50 on 14.01.2015.
  */
-public class TableStateValueFunction<S extends State> implements StateValueFunction<S> {
+public class TableUpdatableFunction<S extends State> implements UpdatableFunction<S> {
 
     private Map<S, Double> table = new HashMap<S, Double>();
 
-    public TableStateValueFunction(Map<S, Double> table) {
+    public TableUpdatableFunction(Map<S, Double> table) {
         this.table = table;
     }
 

@@ -22,7 +22,7 @@ public class AccessStateOperationBuilder<S extends State, A extends Action> {
         this.gamma = gamma;
     }
 
-    public AccessState<S, A> build(Strategy<S, A> strategy, StateValueFunction<S> stateValueFunction)
+    public AccessState<S, A> build(Strategy<S, A> strategy, UpdatableFunction<S> stateValueFunction)
     {
         return new AccessState<S, A>(transitionModel, rewardModel, strategy, stateValueFunction, gamma);
     }

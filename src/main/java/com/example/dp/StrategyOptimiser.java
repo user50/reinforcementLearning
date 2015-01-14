@@ -2,7 +2,7 @@ package com.example.dp;
 
 import com.example.common.Action;
 import com.example.common.State;
-import com.example.common.StateValueFunction;
+import com.example.common.UpdatableFunction;
 import com.example.common.Strategy;
 import com.google.inject.Inject;
 
@@ -21,7 +21,7 @@ public class StrategyOptimiser<S extends State, A extends Action> {
         this.strategyAccessor = strategyAccessor;
     }
 
-    public Strategy<S, A> findOptimal( Strategy<S,A> strategy, StateValueFunction<S> stateValueFunction )
+    public Strategy<S, A> findOptimal( Strategy<S,A> strategy, UpdatableFunction<S> stateValueFunction )
     {
         boolean stable = false;
         while (!stable)

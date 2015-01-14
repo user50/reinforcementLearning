@@ -1,49 +1,57 @@
 package com.example.dp;
 
 import com.example.common.*;
+import com.example.solving.Solver;
+import com.example.solving.StateBelmanEquationSystem;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by user50 on 06.01.2015.
  */
-public class StateValueFunctionAccessor<S extends State, A extends Action> {
+public class StateValueFunctionAccessor<S extends State, A extends Action> implements UpdatableFunctionAccessor<S, S, A> {
 
     List<S> nonTerminalStates;
     double errorTolerance;
-    AccessStateOperationBuilder<S,A> accessStateOperationBuilder;
+    TransitionModel<S,A> transitionModel;
+    RewardModel<S,A> rewardModel;
+    double gamma;
 
     @Inject
-    public StateValueFunctionAccessor(@Named("nonTerminalStates") List<S> nonTerminalStates,
-                                      @Named("errorTolerance") double errorTolerance,
-                                      AccessStateOperationBuilder<S, A> accessStateOperationBuilder) {
+    public StateValueFunctionAccessor( @Named("nonTerminalStates") List<S> nonTerminalStates,
+                                       @Named("errorTolerance") double errorTolerance,
+                                       TransitionModel<S, A> transitionModel,
+                                       RewardModel<S, A> rewardModel,
+                                       @Named("gamma") double gamma) {
         this.nonTerminalStates = nonTerminalStates;
         this.errorTolerance = errorTolerance;
-        this.accessStateOperationBuilder = accessStateOperationBuilder;
+        this.transitionModel = transitionModel;
+        this.rewardModel = rewardModel;
+        this.gamma = gamma;
     }
 
-    public StateValueFunction<S> access(Strategy<S, A> strategy, StateValueFunction<S> stateValueFunction)
+    public UpdatableFunction<S> access(Strategy<S, A> strategy, UpdatableFunction<S> stateValueFunction)
     {
-        AccessState<S, A> accessor = accessStateOperationBuilder.build(strategy, stateValueFunction);
+        StateBelmanEquationSystem<S,A> system = new StateBelmanEquationSystem<S,A>(transitionModel, rewardModel, strategy, gamma);
 
-        boolean stop;
+        Solver<S> solver = new Solver<S>(system, errorTolerance);
 
-        do {
-            double maxError = 0;
+        Map<S,Double> solution = solver.solve(init(stateValueFunction));
 
-            for (S state : nonTerminalStates) {
-                double currentValue = stateValueFunction.calculate(state);
-                double nextValue = accessor.accessTotalReward( state );
-                stateValueFunction.update(state, nextValue);
-
-                maxError = Math.max(maxError, Math.abs(currentValue - nextValue));
-            }
-
-            stop = maxError < errorTolerance;
-        }while (!stop);
-
-        return stateValueFunction;
+        return new TableUpdatableFunction<S>(solution);
     }
+
+    private Map<S,Double> init(UpdatableFunction<S> stateValueFunction)
+    {
+        Map<S,Double> init = new HashMap<S, Double>();
+        for (S nonTerminalState : nonTerminalStates)
+            init.put(nonTerminalState, stateValueFunction.calculate(nonTerminalState));
+
+        return init;
+    }
+
 }

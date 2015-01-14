@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.util.SoftMax;
 import junit.framework.Assert;
 import org.junit.Test;
 

@@ -7,12 +7,12 @@ import com.example.common.*;
  */
 public class AccessAction<S extends State, A extends Action> {
 
-    StateValueFunction<S> stateValueFunction;
+    UpdatableFunction<S> stateValueFunction;
     TransitionModel<S,A> transitionModel;
     RewardModel<S,A> rewardModel;
     double gamma;
 
-    public AccessAction(StateValueFunction<S> stateValueFunction, TransitionModel<S, A> transitionModel, RewardModel<S, A> rewardModel, double gamma) {
+    public AccessAction(UpdatableFunction<S> stateValueFunction, TransitionModel<S, A> transitionModel, RewardModel<S, A> rewardModel, double gamma) {
         this.stateValueFunction = stateValueFunction;
         this.transitionModel = transitionModel;
         this.rewardModel = rewardModel;
