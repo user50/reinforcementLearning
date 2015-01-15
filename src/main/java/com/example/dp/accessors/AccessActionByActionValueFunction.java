@@ -13,6 +13,18 @@ public class AccessActionByActionValueFunction<S extends State, A extends Action
     RewardModel<S,A> rewardModel;
     double gamma;
 
+    public AccessActionByActionValueFunction(TransitionModel<S, A> transitionModel,
+                                             UpdatableFunction<StateAction<S, A>> actionValueFunction,
+                                             Strategy<S, A> strategy,
+                                             RewardModel<S, A> rewardModel,
+                                             double gamma) {
+        this.transitionModel = transitionModel;
+        this.actionValueFunction = actionValueFunction;
+        this.strategy = strategy;
+        this.rewardModel = rewardModel;
+        this.gamma = gamma;
+    }
+
     public double access(S state, A action)
     {
         AccessStateByActionValueFunction<S,A> accessState =

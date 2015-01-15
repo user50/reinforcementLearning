@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by user50 on 14.01.2015.
  */
-public class TableUpdatableFunction<S extends State> implements UpdatableFunction<S> {
+public class TableUpdatableFunction<S> implements UpdatableFunction<S> {
 
     private Map<S, Double> table = new HashMap<S, Double>();
 

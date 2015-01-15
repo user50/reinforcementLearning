@@ -32,4 +32,12 @@ public class StateAction<S extends State, A extends Action> {
         result = 31 * result + action.hashCode();
         return result;
     }
+
+    public S getState() {
+        return state;
+    }
+
+    public A getAction() {
+        return action;
+    }
 }

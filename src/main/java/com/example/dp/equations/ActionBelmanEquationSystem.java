@@ -1,8 +1,8 @@
 package com.example.dp.equations;
 
-import com.example.common.Action;
-import com.example.common.State;
-import com.example.common.StateAction;
+import com.example.common.*;
+import com.example.dp.TableUpdatableFunction;
+import com.example.dp.accessors.AccessActionByActionValueFunction;
 import com.example.solving.EquationSystem;
 
 import java.util.Map;
@@ -12,8 +12,16 @@ import java.util.Map;
  */
 public class ActionBelmanEquationSystem<S extends State, A extends Action> implements EquationSystem<StateAction<S, A>> {
 
+    TransitionModel<S,A> transitionModel;
+    RewardModel<S,A> rewardModel;
+    Strategy<S,A> strategy;
+    double gamma;
+
     @Override
     public double calculate(StateAction<S, A> variable, Map<StateAction<S, A>, Double> variables) {
-        return 0;
+        AccessActionByActionValueFunction<S,A> accessor =
+                new AccessActionByActionValueFunction<S,A>(transitionModel, new TableUpdatableFunction<StateAction<S, A>>(variables), strategy, rewardModel, gamma );
+
+        return accessor.access(variable.getState(), variable.getAction());
     }
 }
