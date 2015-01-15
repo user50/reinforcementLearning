@@ -1,8 +1,8 @@
 package com.example.dp;
 
 import com.example.common.*;
+import com.example.dp.equations.StateBelmanEquationSystem;
 import com.example.solving.Solver;
-import com.example.solving.StateBelmanEquationSystem;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 

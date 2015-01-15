@@ -1,18 +1,18 @@
-package com.example.dp;
+package com.example.dp.accessors;
 
 import com.example.common.*;
 
 /**
  * Created by user50 on 07.01.2015.
  */
-public class AccessAction<S extends State, A extends Action> {
+public class AccessActionByStateValueFunction<S extends State, A extends Action> {
 
     UpdatableFunction<S> stateValueFunction;
     TransitionModel<S,A> transitionModel;
     RewardModel<S,A> rewardModel;
     double gamma;
 
-    public AccessAction(UpdatableFunction<S> stateValueFunction, TransitionModel<S, A> transitionModel, RewardModel<S, A> rewardModel, double gamma) {
+    public AccessActionByStateValueFunction(UpdatableFunction<S> stateValueFunction, TransitionModel<S, A> transitionModel, RewardModel<S, A> rewardModel, double gamma) {
         this.stateValueFunction = stateValueFunction;
         this.transitionModel = transitionModel;
         this.rewardModel = rewardModel;

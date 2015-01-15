@@ -1,6 +1,7 @@
 package com.example.dp;
 
 import com.example.common.*;
+import com.example.dp.accessors.AccessActionByStateValueFunction;
 
 /**
  * Created by user50 on 07.01.2015.
@@ -24,7 +25,7 @@ public class FindBestActionOperation<S extends State, A extends Action> {
         double best = -Double.MAX_VALUE;
         A bestAction = null;
 
-        AccessAction<S,A> accessAction = new AccessAction<S, A>(stateValueFunction, transitionModel, rewardModel, gamma);
+        AccessActionByStateValueFunction<S,A> accessAction = new AccessActionByStateValueFunction<S, A>(stateValueFunction, transitionModel, rewardModel, gamma);
 
         for (A action : transitionModel.getPossibleActions(state))
         {

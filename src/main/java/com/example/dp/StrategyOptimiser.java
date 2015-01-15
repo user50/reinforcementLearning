@@ -21,12 +21,14 @@ public class StrategyOptimiser<S extends State, A extends Action> {
         this.strategyAccessor = strategyAccessor;
     }
 
-    public Strategy<S, A> findOptimal( Strategy<S,A> strategy, UpdatableFunction<S> stateValueFunction )
+    public Strategy<S, A> findOptimal( Strategy<S,A> strategy, UpdatableFunction<S> initFunction )
     {
+        UpdatableFunction<S> stateValueFunction = initFunction;
+
         boolean stable = false;
         while (!stable)
         {
-            stateValueFunctionAccessor.access(strategy, stateValueFunction);
+            stateValueFunction = stateValueFunctionAccessor.access(strategy, stateValueFunction);
             stable = strategyAccessor.access(strategy, stateValueFunction);
         }
 

@@ -34,7 +34,6 @@ public class AimaModule extends AbstractModule {
 
         bind(new TypeLiteral<StrategyOptimiser<AimaState, AimaAction>>() {});
 
-        bind(new TypeLiteral<AccessStateOperationBuilder<AimaState, AimaAction>>() {});
 
 
 

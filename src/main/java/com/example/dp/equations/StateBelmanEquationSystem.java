@@ -1,8 +1,9 @@
-package com.example.solving;
+package com.example.dp.equations;
 
 import com.example.common.*;
-import com.example.dp.AccessState;
+import com.example.dp.accessors.AccessStateByStateValueFunction;
 import com.example.dp.TableUpdatableFunction;
+import com.example.solving.EquationSystem;
 
 import java.util.Map;
 
@@ -25,6 +26,6 @@ public class StateBelmanEquationSystem<S extends State, A extends Action> implem
 
     @Override
     public double calculate(S state, Map<S, Double> variables) {
-        return new AccessState<S,A>(transitionModel, rewardModel, strategy, new TableUpdatableFunction<S>(variables), gamma).accessTotalReward(state);
+        return new AccessStateByStateValueFunction<S,A>(transitionModel, rewardModel, strategy, new TableUpdatableFunction<S>(variables), gamma).accessTotalReward(state);
     }
 }
