@@ -9,13 +9,13 @@ import com.google.inject.Inject;
 /**
  * Created by user50 on 07.01.2015.
  */
-public class StrategyOptimiser<S extends State, A extends Action> {
+public class StrategyIteration<S extends State, A extends Action> {
 
-    private StateValueFunctionAccessor<S,A> stateValueFunctionAccessor;
+    private UpdatableFunctionAccessor<S,S,A> stateValueFunctionAccessor;
     private StrategyAccessor<S,A> strategyAccessor;
 
     @Inject
-    public StrategyOptimiser(StateValueFunctionAccessor<S, A> stateValueFunctionAccessor,
+    public StrategyIteration(UpdatableFunctionAccessor<S, S, A> stateValueFunctionAccessor,
                              StrategyAccessor<S, A> strategyAccessor) {
         this.stateValueFunctionAccessor = stateValueFunctionAccessor;
         this.strategyAccessor = strategyAccessor;

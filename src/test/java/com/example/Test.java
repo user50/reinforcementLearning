@@ -1,11 +1,21 @@
 package com.example;
 
 import com.example.aima.*;
-import com.example.aima.modules.AimaModule;
-import com.example.dp.StrategyOptimiser;
+import com.example.aima.modules.dp.ActionValueFunctionAccessorModule;
+import com.example.aima.modules.dp.AimaModule;
+import com.example.aima.modules.dp.AimaProblemDefinitionModule;
+import com.example.aima.modules.dp.StateValueFunctionAccessorModule;
+import com.example.common.StateAction;
+import com.example.common.UpdatableFunction;
+import com.example.dp.StrategyIteration;
+import com.example.dp.TableUpdatableFunction;
+import com.example.dp.UpdatableFunctionAccessor;
 import com.google.inject.Guice;
+import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.TypeLiteral;
+
+import java.util.HashMap;
 
 /**
  * Created by user50 on 06.01.2015.
@@ -14,8 +24,8 @@ public class Test {
 
     @org.junit.Test
     public void testName() throws Exception {
-        StrategyOptimiser<AimaState, AimaAction> optimiser = Guice.createInjector(new AimaModule())
-                .getInstance(Key.get(new TypeLiteral<StrategyOptimiser<AimaState, AimaAction>>() {}));
+        StrategyIteration<AimaState, AimaAction> optimiser = Guice.createInjector(new AimaModule())
+                .getInstance(Key.get(new TypeLiteral<StrategyIteration<AimaState, AimaAction>>() {}));
 
         AimaStrategy strategy = new AimaStrategy();
         AimaStateValueFunction stateValueFunction = new AimaStateValueFunction();
@@ -24,5 +34,33 @@ public class Test {
 
         strategy.display();
 
+    }
+
+    @org.junit.Test
+    public void testStateValueFunctionAccessor() throws Exception {
+        Injector injector = Guice.createInjector(new AimaProblemDefinitionModule(), new StateValueFunctionAccessorModule());
+
+        UpdatableFunctionAccessor<AimaState, AimaState, AimaAction> functionAccessor =
+                injector.getInstance(Key.get(new TypeLiteral< UpdatableFunctionAccessor<AimaState, AimaState, AimaAction>>() {}));
+
+        AimaStrategy strategy = new AimaStrategy();
+        AimaStateValueFunction stateValueFunction = new AimaStateValueFunction();
+
+        TableUpdatableFunction<AimaState> function = (TableUpdatableFunction<AimaState>) functionAccessor.access(strategy, stateValueFunction);
+    }
+
+    @org.junit.Test
+    public void testActionValueFunctionAccessor() throws Exception {
+        Injector injector = Guice.createInjector(new AimaProblemDefinitionModule(), new ActionValueFunctionAccessorModule());
+
+        UpdatableFunctionAccessor<StateAction<AimaState, AimaAction>, AimaState, AimaAction> functionAccessor =
+                injector.getInstance(Key.get(new TypeLiteral< UpdatableFunctionAccessor<StateAction<AimaState, AimaAction>, AimaState, AimaAction>>() {}));
+
+        AimaStrategy strategy = new AimaStrategy();
+        UpdatableFunction<StateAction<AimaState, AimaAction>> stateValueFunction
+                = new TableUpdatableFunction<StateAction<AimaState, AimaAction>>(new HashMap<StateAction<AimaState, AimaAction>, Double>());
+
+        TableUpdatableFunction<StateAction<AimaState, AimaAction>> function =
+                (TableUpdatableFunction<StateAction<AimaState, AimaAction>>) functionAccessor.access(strategy, stateValueFunction);
     }
 }

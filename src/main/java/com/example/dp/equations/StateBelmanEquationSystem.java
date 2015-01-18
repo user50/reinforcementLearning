@@ -4,6 +4,8 @@ import com.example.common.*;
 import com.example.dp.accessors.AccessStateByStateValueFunction;
 import com.example.dp.TableUpdatableFunction;
 import com.example.solving.EquationSystem;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 import java.util.Map;
 
@@ -17,7 +19,8 @@ public class StateBelmanEquationSystem<S extends State, A extends Action> implem
     Strategy<S,A> strategy;
     double gamma;
 
-    public StateBelmanEquationSystem(TransitionModel<S, A> transitionModel, RewardModel<S, A> rewardModel, Strategy<S, A> strategy, double gamma) {
+    @Inject
+    public StateBelmanEquationSystem(TransitionModel<S, A> transitionModel, RewardModel<S, A> rewardModel, Strategy<S, A> strategy, @Named("gamma") double gamma) {
         this.transitionModel = transitionModel;
         this.rewardModel = rewardModel;
         this.strategy = strategy;

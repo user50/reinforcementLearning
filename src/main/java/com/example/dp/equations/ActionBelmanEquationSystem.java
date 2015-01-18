@@ -17,6 +17,13 @@ public class ActionBelmanEquationSystem<S extends State, A extends Action> imple
     Strategy<S,A> strategy;
     double gamma;
 
+    public ActionBelmanEquationSystem(TransitionModel<S, A> transitionModel, RewardModel<S, A> rewardModel, Strategy<S, A> strategy, double gamma) {
+        this.transitionModel = transitionModel;
+        this.rewardModel = rewardModel;
+        this.strategy = strategy;
+        this.gamma = gamma;
+    }
+
     @Override
     public double calculate(StateAction<S, A> variable, Map<StateAction<S, A>, Double> variables) {
         AccessActionByActionValueFunction<S,A> accessor =

@@ -11,7 +11,10 @@ import java.util.Map;
  */
 public class TableUpdatableFunction<S> implements UpdatableFunction<S> {
 
-    private Map<S, Double> table = new HashMap<S, Double>();
+    protected Map<S, Double> table = new HashMap<S, Double>();
+
+    public TableUpdatableFunction() {
+    }
 
     public TableUpdatableFunction(Map<S, Double> table) {
         this.table = table;
@@ -23,6 +26,10 @@ public class TableUpdatableFunction<S> implements UpdatableFunction<S> {
             return 0;
 
         return table.get(state);
+    }
+
+    public Map<S, Double> getTable() {
+        return table;
     }
 
     @Override

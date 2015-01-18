@@ -1,6 +1,7 @@
 package com.example.aima;
 
 import com.example.common.UpdatableFunction;
+import com.example.dp.TableUpdatableFunction;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,21 +9,14 @@ import java.util.Map;
 /**
  * Created by user50 on 06.01.2015.
  */
-public class AimaStateValueFunction implements UpdatableFunction<AimaState> {
+public class AimaStateValueFunction extends TableUpdatableFunction<AimaState> {
 
-    Map<AimaState, Double> table = new HashMap<AimaState, Double>();
 
-    @Override
-    public double calculate(AimaState state) {
-        if (!table.containsKey(state))
-            return 0;
-
-        return table.get(state);
+    public AimaStateValueFunction(Map<AimaState, Double> table) {
+        super(table);
     }
 
-    @Override
-    public void update(AimaState state, double nextValue) {
-        table.put( state, nextValue);
+    public AimaStateValueFunction() {
     }
 
     public void display() {

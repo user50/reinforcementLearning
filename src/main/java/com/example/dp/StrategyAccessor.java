@@ -29,7 +29,7 @@ public class StrategyAccessor<S extends State, A extends Action> {
 
     public boolean access(Strategy<S, A> strategy, UpdatableFunction<S> stateValueFunction)
     {
-        FindBestActionOperation<S,A> findBestActionOperation = new FindBestActionOperation<S, A>(transitionModel, rewardModel, stateValueFunction, gamma );
+        FindBestActionOperation<S,A> findBestActionOperation = new BestActionByStateValueFunc<S, A>(transitionModel, rewardModel, stateValueFunction, gamma );
 
         boolean stable = true;
         for (S state : nonTerminalStates) {
