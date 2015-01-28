@@ -28,6 +28,15 @@ public class Mathematics {
         return sum / value.size();
     }
 
+    public static int sum(List<Integer> value)
+    {
+        int sum = 0;
+        for (int number : value)
+            sum+=number;
+
+        return sum;
+    }
+
     public static int randInt(int min, int max) {
 
         // NOTE: Usually this should be a field rather than a method
