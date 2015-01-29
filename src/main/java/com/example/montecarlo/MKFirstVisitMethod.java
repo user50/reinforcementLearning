@@ -1,7 +1,7 @@
 package com.example.montecarlo;
 
 import com.example.common.*;
-import com.example.dp.TableUpdatableFunction;
+import com.example.common.table.TableFunction;
 
 import java.util.HashMap;
 import java.util.List;
@@ -57,7 +57,7 @@ public class MKFirstVisitMethod< S extends State,A extends Action> {
             expectedTotalReward.put(arg, totalReward / totalVisit );
         }
 
-        return new TableUpdatableFunction<Arg>(expectedTotalReward);
+        return new TableFunction<Arg>(expectedTotalReward);
 
     }
 

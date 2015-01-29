@@ -4,15 +4,12 @@ import com.example.aima.*;
 import com.example.blackjack.*;
 import com.example.common.State;
 import com.example.common.StateAction;
+import com.example.common.table.TableFunction;
 import com.example.common.UpdatableFunction;
-import com.example.dp.TableUpdatableFunction;
 import com.example.montecarlo.MKFirstVisitMethod;
 import com.example.montecarlo.StateActionArgumentBuilder;
 import com.example.montecarlo.StateArgumentBuilder;
-import com.example.montecarlo.Step;
 import org.junit.Test;
-
-import java.util.List;
 
 /**
  * Created by user50 on 18.01.2015.
@@ -29,7 +26,7 @@ public class MonteKarloTest {
 
         UpdatableFunction<State> function =  firstVisitMethod.execute(strategy, new StateArgumentBuilder());
 
-        new AimaStateValueFunction(((TableUpdatableFunction) function).getTable()).display();
+        new AimaStateValueFunction(((TableFunction) function).getTable()).display();
     }
 
     @Test

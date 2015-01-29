@@ -6,9 +6,9 @@ import com.example.aima.modules.dp.AimaModule;
 import com.example.aima.modules.dp.AimaProblemDefinitionModule;
 import com.example.aima.modules.dp.StateValueFunctionAccessorModule;
 import com.example.common.StateAction;
+import com.example.common.table.TableFunction;
 import com.example.common.UpdatableFunction;
 import com.example.dp.StrategyIteration;
-import com.example.dp.TableUpdatableFunction;
 import com.example.dp.UpdatableFunctionAccessor;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -46,7 +46,7 @@ public class Test {
         AimaStrategy strategy = new AimaStrategy();
         AimaStateValueFunction stateValueFunction = new AimaStateValueFunction();
 
-        TableUpdatableFunction<AimaState> function = (TableUpdatableFunction<AimaState>) functionAccessor.access(strategy, stateValueFunction);
+        TableFunction<AimaState> function = (TableFunction<AimaState>) functionAccessor.access(strategy, stateValueFunction);
     }
 
     @org.junit.Test
@@ -58,9 +58,9 @@ public class Test {
 
         AimaStrategy strategy = new AimaStrategy();
         UpdatableFunction<StateAction<AimaState, AimaAction>> stateValueFunction
-                = new TableUpdatableFunction<StateAction<AimaState, AimaAction>>(new HashMap<StateAction<AimaState, AimaAction>, Double>());
+                = new TableFunction<StateAction<AimaState, AimaAction>>(new HashMap<StateAction<AimaState, AimaAction>, Double>());
 
-        TableUpdatableFunction<StateAction<AimaState, AimaAction>> function =
-                (TableUpdatableFunction<StateAction<AimaState, AimaAction>>) functionAccessor.access(strategy, stateValueFunction);
+        TableFunction<StateAction<AimaState, AimaAction>> function =
+                (TableFunction<StateAction<AimaState, AimaAction>>) functionAccessor.access(strategy, stateValueFunction);
     }
 }

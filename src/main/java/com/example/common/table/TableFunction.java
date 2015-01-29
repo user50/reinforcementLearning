@@ -1,4 +1,4 @@
-package com.example.dp;
+package com.example.common.table;
 
 import com.example.common.State;
 import com.example.common.UpdatableFunction;
@@ -9,14 +9,14 @@ import java.util.Map;
 /**
  * Created by user50 on 14.01.2015.
  */
-public class TableUpdatableFunction<S> implements UpdatableFunction<S> {
+public class TableFunction<S> implements UpdatableFunction<S> {
 
     protected Map<S, Double> table = new HashMap<S, Double>();
 
-    public TableUpdatableFunction() {
+    public TableFunction() {
     }
 
-    public TableUpdatableFunction(Map<S, Double> table) {
+    public TableFunction(Map<S, Double> table) {
         this.table = table;
     }
 

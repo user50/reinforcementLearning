@@ -1,15 +1,13 @@
 package com.example.aima;
 
-import com.example.common.UpdatableFunction;
-import com.example.dp.TableUpdatableFunction;
+import com.example.common.table.TableFunction;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by user50 on 06.01.2015.
  */
-public class AimaStateValueFunction extends TableUpdatableFunction<AimaState> {
+public class AimaStateValueFunction extends TableFunction<AimaState> {
 
 
     public AimaStateValueFunction(Map<AimaState, Double> table) {

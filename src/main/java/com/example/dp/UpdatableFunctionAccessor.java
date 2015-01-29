@@ -1,11 +1,8 @@
 package com.example.dp;
 
-import com.example.common.Action;
-import com.example.common.State;
-import com.example.common.Strategy;
-import com.example.common.UpdatableFunction;
+import com.example.common.*;
 import com.example.dp.builders.BelmanEquationSystemBuilder;
-import com.example.dp.TableUpdatableFunction;
+import com.example.common.table.TableFunction;
 import com.example.solving.EquationSystem;
 import com.example.solving.Solver;
 import com.google.inject.Inject;
@@ -40,7 +37,7 @@ public class UpdatableFunctionAccessor<Arg, S extends State, A extends Action> {
 
         Map<Arg,Double> solution = solver.solve(init(function));
 
-        return new TableUpdatableFunction<Arg>(solution);
+        return new TableFunction<Arg>(solution);
     }
 
     private Map<Arg,Double> init(UpdatableFunction<Arg> stateValueFunction)

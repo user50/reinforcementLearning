@@ -1,7 +1,7 @@
 package com.example.dp.equations;
 
 import com.example.common.*;
-import com.example.dp.TableUpdatableFunction;
+import com.example.common.table.TableFunction;
 import com.example.dp.accessors.AccessActionByActionValueFunction;
 import com.example.solving.EquationSystem;
 
@@ -27,7 +27,7 @@ public class ActionBelmanEquationSystem<S extends State, A extends Action> imple
     @Override
     public double calculate(StateAction<S, A> variable, Map<StateAction<S, A>, Double> variables) {
         AccessActionByActionValueFunction<S,A> accessor =
-                new AccessActionByActionValueFunction<S,A>(transitionModel, new TableUpdatableFunction<StateAction<S, A>>(variables), strategy, rewardModel, gamma );
+                new AccessActionByActionValueFunction<S,A>(transitionModel, new TableFunction<StateAction<S, A>>(variables), strategy, rewardModel, gamma );
 
         return accessor.access(variable.getState(), variable.getAction());
     }
