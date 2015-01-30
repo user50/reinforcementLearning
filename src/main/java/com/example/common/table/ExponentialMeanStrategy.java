@@ -15,7 +15,7 @@ public class ExponentialMeanStrategy<Arg> implements UpdateTableStrategy<Arg>{
 
     @Override
     public void update(Map<Arg, Double> table, Arg argument, double value) {
-        if (table.containsKey(argument))
+        if (!table.containsKey(argument))
             table.put(argument, 0.0);
 
         double currentValue = table.get(argument);

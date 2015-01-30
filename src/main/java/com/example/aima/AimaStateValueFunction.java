@@ -1,6 +1,7 @@
 package com.example.aima;
 
 import com.example.common.table.TableFunction;
+import com.example.common.table.UpdateTableStrategy;
 
 import java.util.Map;
 
@@ -14,7 +15,8 @@ public class AimaStateValueFunction extends TableFunction<AimaState> {
         super(table);
     }
 
-    public AimaStateValueFunction() {
+    public AimaStateValueFunction(UpdateTableStrategy<AimaState> updateStrategy) {
+        super(updateStrategy);
     }
 
     public void display() {

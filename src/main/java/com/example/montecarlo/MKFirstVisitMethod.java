@@ -22,11 +22,8 @@ public class MKFirstVisitMethod< S extends State,A extends Action> {
         this.gamma = gamma;
     }
 
-    public <Arg> UpdatableFunction<Arg> execute(Strategy<S,A> strategy, ArgumentBuilder<Arg> argumentBuilder)
+    public <Arg> UpdatableFunction<Arg> execute(Strategy<S,A> strategy, ArgumentBuilder<Arg> argumentBuilder, UpdatableFunction<Arg> updatableFunction)
     {
-        Map<Arg, Double> totalRewardPerArg = new HashMap<Arg, Double>();
-        Map<Arg, Integer> totalVisits = new HashMap<Arg, Integer>();
-
         for (int iteration=0; iteration<maxIterations; iteration++) {
             List<Step<S,A>> episode = simulator.generateEpisode(strategy);
 
@@ -37,27 +34,11 @@ public class MKFirstVisitMethod< S extends State,A extends Action> {
 
                 Arg arg = argumentBuilder.build(step);
 
-                if (!totalRewardPerArg.containsKey(arg))
-                {
-                    totalRewardPerArg.put(arg, 0.0);
-                    totalVisits.put(arg, 0);
-                }
-
-                totalRewardPerArg.put(arg, totalRewardPerArg.get(arg) + totalReward);
-                totalVisits.put(arg, totalVisits.get(arg) + 1);
+                updatableFunction.update(arg, totalReward);
             }
         }
 
-        Map<Arg,Double> expectedTotalReward = new HashMap<Arg, Double>();
-
-        for (Arg arg : totalRewardPerArg.keySet()) {
-            double totalReward = totalRewardPerArg.get(arg);
-            int totalVisit = totalVisits.get(arg);
-
-            expectedTotalReward.put(arg, totalReward / totalVisit );
-        }
-
-        return new TableFunction<Arg>(expectedTotalReward);
+        return updatableFunction;
 
     }
 

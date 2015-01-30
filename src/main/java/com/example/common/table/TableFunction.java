@@ -1,6 +1,5 @@
 package com.example.common.table;
 
-import com.example.common.State;
 import com.example.common.UpdatableFunction;
 
 import java.util.HashMap;
@@ -9,31 +8,34 @@ import java.util.Map;
 /**
  * Created by user50 on 14.01.2015.
  */
-public class TableFunction<S> implements UpdatableFunction<S> {
+public class TableFunction<Arg> implements UpdatableFunction<Arg> {
 
-    protected Map<S, Double> table = new HashMap<S, Double>();
+    protected Map<Arg, Double> table = new HashMap<Arg, Double>();
 
-    public TableFunction() {
+    UpdateTableStrategy<Arg> updateStrategy;
+
+    public TableFunction(UpdateTableStrategy<Arg> updateStrategy) {
+        this.updateStrategy = updateStrategy;
     }
 
-    public TableFunction(Map<S, Double> table) {
+    public TableFunction(Map<Arg, Double> table) {
         this.table = table;
     }
 
     @Override
-    public double calculate(S state) {
-        if (!table.containsKey(state))
+    public double calculate(Arg argument) {
+        if (!table.containsKey(argument))
             return 0;
 
-        return table.get(state);
+        return table.get(argument);
     }
 
-    public Map<S, Double> getTable() {
+    public Map<Arg, Double> getTable() {
         return table;
     }
 
     @Override
-    public void update(S state, double value) {
-        table.put( state, value);
+    public void update(Arg argument, double value) {
+        updateStrategy.update(table, argument, value);
     }
 }

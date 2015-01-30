@@ -6,6 +6,7 @@ import com.example.aima.modules.dp.AimaModule;
 import com.example.aima.modules.dp.AimaProblemDefinitionModule;
 import com.example.aima.modules.dp.StateValueFunctionAccessorModule;
 import com.example.common.StateAction;
+import com.example.common.table.ReplaceStrategy;
 import com.example.common.table.TableFunction;
 import com.example.common.UpdatableFunction;
 import com.example.dp.StrategyIteration;
@@ -28,7 +29,7 @@ public class Test {
                 .getInstance(Key.get(new TypeLiteral<StrategyIteration<AimaState, AimaAction>>() {}));
 
         AimaStrategy strategy = new AimaStrategy();
-        AimaStateValueFunction stateValueFunction = new AimaStateValueFunction();
+        AimaStateValueFunction stateValueFunction = new AimaStateValueFunction(new ReplaceStrategy<AimaState>());
 
         optimiser.findOptimal(strategy, stateValueFunction);
 
@@ -44,7 +45,7 @@ public class Test {
                 injector.getInstance(Key.get(new TypeLiteral< UpdatableFunctionAccessor<AimaState, AimaState, AimaAction>>() {}));
 
         AimaStrategy strategy = new AimaStrategy();
-        AimaStateValueFunction stateValueFunction = new AimaStateValueFunction();
+        AimaStateValueFunction stateValueFunction = new AimaStateValueFunction(new ReplaceStrategy<AimaState>());
 
         TableFunction<AimaState> function = (TableFunction<AimaState>) functionAccessor.access(strategy, stateValueFunction);
     }

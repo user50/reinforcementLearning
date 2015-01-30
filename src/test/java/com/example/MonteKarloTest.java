@@ -4,6 +4,8 @@ import com.example.aima.*;
 import com.example.blackjack.*;
 import com.example.common.State;
 import com.example.common.StateAction;
+import com.example.common.table.CumulativeStrategy;
+import com.example.common.table.ExponentialMeanStrategy;
 import com.example.common.table.TableFunction;
 import com.example.common.UpdatableFunction;
 import com.example.montecarlo.MKFirstVisitMethod;
@@ -24,7 +26,7 @@ public class MonteKarloTest {
 
         AimaStrategy strategy = new AimaStrategy();
 
-        UpdatableFunction<State> function =  firstVisitMethod.execute(strategy, new StateArgumentBuilder());
+        UpdatableFunction<State> function =  firstVisitMethod.execute(strategy, new StateArgumentBuilder(), new TableFunction<State>(new ExponentialMeanStrategy<State>(0.05)));
 
         new AimaStateValueFunction(((TableFunction) function).getTable()).display();
     }
@@ -36,7 +38,8 @@ public class MonteKarloTest {
         MKFirstVisitMethod<BlackjackState, BlackjackAction> firstVisitMethod = new MKFirstVisitMethod<BlackjackState, BlackjackAction>(simulator, 100000, 1);
 
         BlackjackStrategy strategy = new BlackjackStrategy();
-        UpdatableFunction<StateAction> function =  firstVisitMethod.execute(strategy, new StateActionArgumentBuilder());
+        UpdatableFunction<StateAction> function =  firstVisitMethod.execute(strategy, new StateActionArgumentBuilder(),
+                new TableFunction<StateAction>(new CumulativeStrategy<StateAction>()));
 
     }
 }
