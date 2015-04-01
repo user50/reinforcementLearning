@@ -1,0 +1,5 @@
+apply from: "$rootProject.projectDir/build.gradle"
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}

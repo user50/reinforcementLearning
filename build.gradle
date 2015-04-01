@@ -1,10 +1,21 @@
 apply plugin: 'java'
 
-sourceCompatibility = 1.5
-version = '1.0'
+group = 'com.reinforcement'
+version = '0.0.1'
+
+apply plugin: 'idea'
 
 repositories {
     mavenCentral()
+}
+
+idea {
+    module {
+        jdkName = '1.8'
+
+        downloadJavadoc = true
+        downloadSources = true
+    }
 }
 
 dependencies {
