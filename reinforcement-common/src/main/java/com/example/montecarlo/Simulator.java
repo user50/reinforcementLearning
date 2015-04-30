@@ -12,5 +12,5 @@ import java.util.List;
  */
 public interface Simulator<S extends State,A extends Action> {
 
-    List<Step<S,A>> generateEpisode(Strategy strategy);
+    List<Step<S,A>> generateEpisode(Strategy<S,A> strategy);
 }

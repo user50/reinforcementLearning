@@ -1,15 +1,9 @@
 package com.example.montecarlo;
 
 import com.example.common.*;
-import com.example.common.table.TableFunction;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-/**
- * Created by user50 on 18.01.2015.
- */
 public class MKFirstVisitMethod< S extends State,A extends Action> {
 
     Simulator<S,A> simulator;
