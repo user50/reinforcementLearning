@@ -3,7 +3,7 @@ package simulation;
 /**
  * Created by user50 on 13.05.2015.
  */
-public abstract class ActionCountGambler implements Gambler {
+public abstract class ActionCountPokerPlayer implements PokerPlayer {
 
     protected int count = 0;
 

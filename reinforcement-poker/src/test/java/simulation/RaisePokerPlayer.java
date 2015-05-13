@@ -3,11 +3,12 @@ package simulation;
 /**
  * Created by user50 on 13.05.2015.
  */
-public class FoldGambler extends ActionCountGambler {
+public class RaisePokerPlayer extends ActionCountPokerPlayer {
+
+
     @Override
     public Action makeDecision() {
-        count++;
-
-        return Action.fold;
+        count ++;
+        return Action.raise;
     }
 }

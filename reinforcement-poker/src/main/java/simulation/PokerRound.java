@@ -5,11 +5,11 @@ import java.util.List;
 /**
  * Created by user50 on 08.05.2015.
  */
-public class Gambling {
+public class PokerRound {
 
-    List<? extends Gambler> gamblers;
+    List<? extends PokerPlayer> gamblers;
 
-    public Gambling(List<? extends Gambler > gamblers) {
+    public PokerRound(List<? extends PokerPlayer> gamblers) {
         this.gamblers = gamblers;
     }
 
@@ -19,8 +19,8 @@ public class Gambling {
 
         int turn = 0;
         do {
-            Gambler gambler = gamblers.get(turn % gamblers.size());
-            Action action = gambler.makeDecision();
+            PokerPlayer pokerPlayer = gamblers.get(turn % gamblers.size());
+            Action action = pokerPlayer.makeDecision();
 
             if (action == Action.fold)
                 gamblers.remove(turn % gamblers.size());
@@ -35,6 +35,5 @@ public class Gambling {
 
         }while ( turn % gamblers.size() != raisedPlayer );
     }
-
 
 }
