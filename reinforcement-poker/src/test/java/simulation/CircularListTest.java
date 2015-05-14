@@ -1,6 +1,8 @@
 package simulation;
 
 import com.google.common.collect.Lists;
+import cylic.CircularList;
+import cylic.HeadsAndTailsCondition;
 import org.junit.Test;
 
 import java.util.List;

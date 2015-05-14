@@ -1,4 +1,4 @@
-package simulation;
+package cylic;
 
 /**
  * Created by lozov on 13.05.15.
