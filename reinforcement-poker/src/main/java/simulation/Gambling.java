@@ -18,6 +18,10 @@ public class Gambling {
         this.raisingAmount = raisingAmount;
     }
 
+    public int getBank() {
+        return bank;
+    }
+
     public void onCheck(Gambler gambler)
     {
         //nothing to do
@@ -30,6 +34,9 @@ public class Gambling {
 
     public void onRaise(Gambler gambler)
     {
+        if (!betting.containsKey(gambler))
+            betting.put(gambler,0);
+
         int amount = (maxBetting - betting.get(gambler)) + raisingAmount;
         gambler.decreaseMoney(amount);
         bank += amount;
@@ -40,6 +47,9 @@ public class Gambling {
 
     public void onCall(Gambler gambler)
     {
+        if (!betting.containsKey(gambler))
+            betting.put(gambler,0);
+
         int amount = maxBetting - betting.get(gambler);
         gambler.decreaseMoney(amount);
         bank += amount;
@@ -47,6 +57,9 @@ public class Gambling {
 
     public void onBet(Gambler gambler)
     {
+        if (!betting.containsKey(gambler))
+            betting.put(gambler,0);
+
         int amount = (maxBetting - betting.get(gambler)) + raisingAmount;
         gambler.decreaseMoney(amount);
         bank += amount;
@@ -54,5 +67,6 @@ public class Gambling {
         maxBetting = betting.get(gambler) + amount;
         betting.put(gambler, maxBetting);
     }
+
 
 }

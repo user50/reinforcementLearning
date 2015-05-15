@@ -7,12 +7,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.Mockito.mock;
+
 public class PokerRoundTest {
 
     @Test
     public void testAllCheck() throws Exception {
+
         List<ActionCountPokerPlayer> gamblers = Arrays.asList(new CheckPokerPlayer(), new CheckPokerPlayer());
-        PokerRound pokerRound = new PokerRound(gamblers);
+        PokerRound pokerRound = new PokerRound(gamblers, mock(Gambling.class) );
 
         pokerRound.play();
 
@@ -23,7 +26,7 @@ public class PokerRoundTest {
     @Test
     public void testSecondFold() throws Exception {
         List<ActionCountPokerPlayer> gamblers = Arrays.asList(new CheckPokerPlayer(), new FoldPokerPlayer());
-        PokerRound pokerRound = new PokerRound(new ArrayList<>(gamblers));
+        PokerRound pokerRound = new PokerRound(new ArrayList<>(gamblers), mock(Gambling.class));
 
         pokerRound.play();
 
@@ -36,7 +39,7 @@ public class PokerRoundTest {
     public void testSecondRaise() throws Exception {
 
         List<ActionCountPokerPlayer> gamblers = Arrays.asList(new CheckPokerPlayer(), new RaisePokerPlayer());
-        PokerRound pokerRound = new PokerRound(new ArrayList<>(gamblers));
+        PokerRound pokerRound = new PokerRound(new ArrayList<>(gamblers), mock(Gambling.class));
 
         pokerRound.play();
 
@@ -47,7 +50,7 @@ public class PokerRoundTest {
     @Test
     public void testSecondFoldThirdRaise() throws Exception {
         List<ActionCountPokerPlayer> gamblers = Arrays.asList(new CheckPokerPlayer(), new RaisePokerPlayer(), new FoldPokerPlayer());
-        PokerRound pokerRound = new PokerRound(new ArrayList<>(gamblers));
+        PokerRound pokerRound = new PokerRound(new ArrayList<>(gamblers), mock(Gambling.class));
 
         pokerRound.play();
 

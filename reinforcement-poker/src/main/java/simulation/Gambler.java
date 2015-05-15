@@ -3,9 +3,21 @@ package simulation;
 /**
  * Created by user50 on 14.05.2015.
  */
-public interface Gambler {
+public abstract class Gambler implements PokerPlayer {
 
-    int getMoney();
+    private int money;
 
-    void decreaseMoney(int amount);
+    public Gambler(int money) {
+        this.money = money;
+    }
+
+    public int getMoney()
+    {
+        return money;
+    }
+
+    public void decreaseMoney(int amount)
+    {
+        money-=amount;
+    }
 }

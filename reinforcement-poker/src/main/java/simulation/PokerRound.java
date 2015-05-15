@@ -7,33 +7,57 @@ import java.util.List;
  */
 public class PokerRound {
 
-    List<? extends PokerPlayer> gamblers;
+    private List<? extends Gambler> pokerPlayers;
+    private Gambling gambling;
 
-    public PokerRound(List<? extends PokerPlayer> gamblers) {
-        this.gamblers = gamblers;
+    public PokerRound(List<? extends Gambler> pokerPlayers, Gambling gambling) {
+        this.pokerPlayers = pokerPlayers;
+        this.gambling = gambling;
     }
 
     public void play()
     {
         int raisedPlayer = 0;
-
         int turn = 0;
+
         do {
-            PokerPlayer pokerPlayer = gamblers.get(turn % gamblers.size());
-            Action action = pokerPlayer.makeDecision();
+            Gambler gambler = pokerPlayers.get(turn % pokerPlayers.size());
+            Action action = gambler.makeDecision();
 
-            if (action == Action.fold)
-                gamblers.remove(turn % gamblers.size());
+            switch (action)
+            {
+                case fold:
+                    pokerPlayers.remove(turn % pokerPlayers.size());
+                    gambling.onFold(gambler);
+                    break;
 
-            if (action == Action.check)
-                turn ++;
+                case check:
+                    turn++;
+                    gambling.onCheck(gambler);
+                    break;
 
-            if (action == Action.raise) {
-                raisedPlayer = turn % gamblers.size();
-                turn++;
+                case raise:
+                    raisedPlayer = turn % pokerPlayers.size();
+                    turn++;
+                    gambling.onRaise(gambler);
+                    break;
+
+                case bet:
+                    raisedPlayer = turn % pokerPlayers.size();
+                    turn++;
+                    gambling.onBet(gambler);
+                    break;
+
+                case call:
+                    turn++;
+                    gambling.onCall(gambler);
+                    break;
+
+                default:
+                    throw new IllegalArgumentException("Not supported action "+action);
             }
 
-        }while ( turn % gamblers.size() != raisedPlayer );
+        }while ( turn % pokerPlayers.size() != raisedPlayer );
     }
 
 }
