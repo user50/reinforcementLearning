@@ -8,14 +8,14 @@ import java.util.Map;
 public class Gambling {
 
     Map<Gambler,Integer> betting;
-    private int raisingAmount;
+    private int minBetAmount;
 
     private int maxBetting = 0;
     private int bank = 0;
 
-    public Gambling(Map<Gambler, Integer> betting, int raisingAmount) {
+    public Gambling(Map<Gambler, Integer> betting, int minBetAmount) {
         this.betting = betting;
-        this.raisingAmount = raisingAmount;
+        this.minBetAmount = minBetAmount;
     }
 
     public int getBank() {
@@ -24,6 +24,8 @@ public class Gambling {
 
     public void onCheck(Gambler gambler)
     {
+        if(maxBetting != betting.get(gambler))
+            throw new IllegalStateException("Unable operation: check");
         //nothing to do
     }
 
@@ -34,10 +36,10 @@ public class Gambling {
 
     public void onRaise(Gambler gambler)
     {
-        if (!betting.containsKey(gambler))
-            betting.put(gambler,0);
+        if(maxBetting == betting.get(gambler))
+            throw new IllegalStateException("Unable operation: raise");
 
-        int amount = (maxBetting - betting.get(gambler)) + raisingAmount;
+        int amount = (maxBetting - betting.get(gambler)) + minBetAmount;
         gambler.decreaseMoney(amount);
         bank += amount;
 
@@ -47,8 +49,8 @@ public class Gambling {
 
     public void onCall(Gambler gambler)
     {
-        if (!betting.containsKey(gambler))
-            betting.put(gambler,0);
+        if(maxBetting == betting.get(gambler))
+            throw new IllegalStateException("Unable operation: call");
 
         int amount = maxBetting - betting.get(gambler);
         gambler.decreaseMoney(amount);
@@ -57,10 +59,10 @@ public class Gambling {
 
     public void onBet(Gambler gambler)
     {
-        if (!betting.containsKey(gambler))
-            betting.put(gambler,0);
+        if(maxBetting != betting.get(gambler))
+            throw new IllegalStateException("Unable operation: bet");
 
-        int amount = (maxBetting - betting.get(gambler)) + raisingAmount;
+        int amount = minBetAmount;
         gambler.decreaseMoney(amount);
         bank += amount;
 

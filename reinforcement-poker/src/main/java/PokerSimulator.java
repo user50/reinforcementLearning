@@ -11,6 +11,7 @@ import simulation.PokerRound;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by user50 on 29.04.2015.
@@ -20,11 +21,9 @@ public class PokerSimulator implements Simulator<PokerState, PokerAction> {
     public static void main(String[] args) {
         List<Gambler> gamblers = Arrays.asList(new BetGambler(100), new CallGambler(100));
 
-        PokerRound pokerRound = new PokerRound(gamblers, new Gambling(new HashMap<>(), 10));
+        PokerRound pokerRound = new PokerRound(gamblers, new Gambling(new HashMap<Gambler, Integer>(), 10));
 
         pokerRound.play();
-
-
     }
 
     @Override

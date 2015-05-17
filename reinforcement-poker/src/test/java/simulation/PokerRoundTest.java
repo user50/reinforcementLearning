@@ -14,7 +14,7 @@ public class PokerRoundTest {
     @Test
     public void testAllCheck() throws Exception {
 
-        List<ActionCountPokerPlayer> gamblers = Arrays.asList(new CheckPokerPlayer(), new CheckPokerPlayer());
+        List<CheckPokerPlayer> gamblers = Arrays.asList(new CheckPokerPlayer(), new CheckPokerPlayer());
         PokerRound pokerRound = new PokerRound(gamblers, mock(Gambling.class) );
 
         pokerRound.play();
