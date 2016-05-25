@@ -6,8 +6,7 @@ import policy.State;
 
 import java.util.*;
 
-import static math.VectorAlgebra.difference;
-import static math.VectorAlgebra.length;
+import static math.VectorAlgebra.*;
 
 public final class MyStrategy implements Strategy {
 
@@ -23,7 +22,13 @@ public final class MyStrategy implements Strategy {
         try {
             Vector me = new Vector(self.getX(), -self.getY());
             Vector mySpeed = new Vector(self.getSpeedX(), -self.getSpeedY());
-            Action action = policy.get(new State(me, mySpeed, getTarget(self, world), world.getTick()));
+            Vector nextWayTail = new Vector(self.getNextWaypointX() * 800 + 400, -self.getNextWaypointY() * 800 - 400);
+
+            Vector me2target = difference(nextWayTail, me);
+            double targetDistance = length(me2target);
+            Vector speedDirection = new Vector(scalarProd(normalise(me2target), normalise(mySpeed) ), vectorProd(normalise(me2target), normalise(mySpeed)));
+
+            Action action = policy.get(new State(targetDistance, speedDirection));
 
             System.out.println(action.getWheelTurn() + " : " + action.getEnginePower());
             move.setWheelTurn(action.getWheelTurn());

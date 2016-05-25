@@ -74,5 +74,7 @@ public class Test {
 
             operation.improve(strategy);
         }
+
+        strategy.display();
     }
 }

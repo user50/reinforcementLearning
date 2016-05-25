@@ -2,6 +2,7 @@ import model.Car;
 import model.Game;
 import model.Move;
 import model.PlayerContext;
+import policy.NaivePolicy;
 import policy.Policy;
 import policy.reinforcement.SecondPolicyProvider;
 
@@ -43,7 +44,7 @@ public final class Runner {
             Strategy[] strategies = new Strategy[teamSize];
 
             for (int strategyIndex = 0; strategyIndex < teamSize; ++strategyIndex) {
-                Policy policy = new SecondPolicyProvider().get();
+                Policy policy = new NaivePolicy() ;
                 strategies[strategyIndex] = new MyStrategy(policy);
             }
 

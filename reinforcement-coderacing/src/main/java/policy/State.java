@@ -4,31 +4,20 @@ import math.Vector;
 
 public class State {
 
-    Vector myPosition;
-    Vector mySpeed;
-    Vector nextWayTail;
-    int tick;
+    double targetDistance;
+    Vector speedDirection;
 
-    public State(Vector myPosition, Vector mySpeed, Vector nextWayTail, int tick) {
-        this.myPosition = myPosition;
-        this.mySpeed = mySpeed;
-        this.nextWayTail = nextWayTail;
-        this.tick = tick;
+    public State(double targetDistance, Vector speedDirection) {
+        this.targetDistance = targetDistance;
+        this.speedDirection = speedDirection;
     }
 
-    public Vector getMyPosition() {
-        return myPosition;
+    public double getTargetDistance() {
+        return targetDistance;
     }
 
-    public Vector getMySpeed() {
-        return mySpeed;
+    public Vector getSpeedDirection() {
+        return speedDirection;
     }
 
-    public Vector getNextWayTail() {
-        return nextWayTail;
-    }
-
-    public int getTick() {
-        return tick;
-    }
 }

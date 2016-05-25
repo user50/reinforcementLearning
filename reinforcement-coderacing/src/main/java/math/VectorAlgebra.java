@@ -72,9 +72,7 @@ public class VectorAlgebra {
         if (vectorProd == 0 && scalarProd == -1)
             return Math.PI;
 
-        double angle = Math.acos(scalarProd / length(first) / length(second)) * Math.signum(vectorProd);
-
-        return angle >= 0 ? angle : Math.PI * 2 + angle;
+        return Math.acos(scalarProd / length(first) / length(second)) * Math.signum(vectorProd);
     }
 
     public static double length(Vector vector){
