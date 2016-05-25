@@ -4,4 +4,5 @@ include 'reinforcement-aima'
 include 'reinforcement-common'
 include 'reinforcement-blackjack'
 include 'reinforcement-poker'
+include 'reinforcement-coderacing'
 

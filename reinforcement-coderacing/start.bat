@@ -1,0 +1,1 @@
+cd reinforcement-coderacing\runner && local-runner.bat
