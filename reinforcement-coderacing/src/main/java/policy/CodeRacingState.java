@@ -1,13 +1,14 @@
 package policy;
 
+import com.example.common.State;
 import math.Vector;
 
-public class State {
+public class CodeRacingState implements State {
 
     double targetDistance;
     Vector speedDirection;
 
-    public State(double targetDistance, Vector speedDirection) {
+    public CodeRacingState(double targetDistance, Vector speedDirection) {
         this.targetDistance = targetDistance;
         this.speedDirection = speedDirection;
     }

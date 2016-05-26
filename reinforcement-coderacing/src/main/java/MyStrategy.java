@@ -1,8 +1,9 @@
+import com.example.montecarlo.Step;
 import math.Vector;
 import model.*;
-import policy.Action;
+import policy.CodeRacingAction;
 import policy.Policy;
-import policy.State;
+import policy.CodeRacingState;
 
 import java.util.*;
 
@@ -12,6 +13,10 @@ public final class MyStrategy implements Strategy {
 
     Policy policy;
     int score = 0;
+    CodeRacingState preState;
+    CodeRacingAction preAction;
+
+    List<Step<CodeRacingState, CodeRacingAction>> steps = new ArrayList<>();
 
     public MyStrategy(Policy policy) {
         this.policy = policy;
@@ -28,26 +33,44 @@ public final class MyStrategy implements Strategy {
             double targetDistance = length(me2target);
             Vector speedDirection = new Vector(scalarProd(normalise(me2target), normalise(mySpeed) ), vectorProd(normalise(me2target), normalise(mySpeed)));
 
-            Action action = policy.get(new State(targetDistance, speedDirection));
+            CodeRacingState state = new CodeRacingState(targetDistance, speedDirection);
+            CodeRacingAction action = policy.get(state);
 
             System.out.println(action.getWheelTurn() + " : " + action.getEnginePower());
             move.setWheelTurn(action.getWheelTurn());
             move.setEnginePower(action.getEnginePower());
 
-            for (Player player : world.getPlayers()) {
-                if (player.getName().equals(getClass().getName())) {
-                    int reward = player.getScore() - score;
-                    score = player.getScore();
+            double reward = getReward(world);
 
-                    if (reward > 0.01)
-                        System.out.println(reward);
-                }
-            }
+            if (preState != null && world.getTick() > 188)
+                steps.add(new Step(preState, preAction, state, reward));
+
+
+            preState = state;
+            preAction = action;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    public List<Step<CodeRacingState, CodeRacingAction>> getSteps() {
+        return steps;
+    }
+
+    private double getReward(World world)
+    {
+        for (Player player : world.getPlayers()) {
+            if (player.getName().equals(getClass().getName())) {
+                int reward = player.getScore() - score;
+                score = player.getScore();
+
+                return score;
+            }
+        }
+
+        throw new RuntimeException("Unable to find player: "+getClass().getName());
     }
 
     private Vector getTarget(Car self, World world)

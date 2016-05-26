@@ -2,36 +2,18 @@ import model.Car;
 import model.Game;
 import model.Move;
 import model.PlayerContext;
-import policy.NaivePolicy;
-import policy.Policy;
-import policy.reinforcement.SecondPolicyProvider;
 
 import java.io.IOException;
 
 public final class Runner {
     private final RemoteProcessClient remoteProcessClient;
     private final String token;
+    private Strategy strategy;
 
-    public static void main(String[] args) throws IOException {
-
-        for (int i = 0; i<5; i++) {
-            Process p = Runtime.getRuntime().exec("reinforcement-coderacing\\start.bat");
-
-            if (args.length == 3) {
-                new Runner(args).run();
-            } else {
-                new Runner(new String[]{"127.0.0.1", "31001", "0000000000000000"}).run();
-            }
-
-            p.destroy();
-        }
-
-
-    }
-
-    private Runner(String[] args) throws IOException {
+    public Runner(String[] args, Strategy strategy) throws IOException {
         remoteProcessClient = new RemoteProcessClient(args[0], Integer.parseInt(args[1]));
         token = args[2];
+        this.strategy = strategy;
     }
 
     public void run() throws IOException {
@@ -44,8 +26,7 @@ public final class Runner {
             Strategy[] strategies = new Strategy[teamSize];
 
             for (int strategyIndex = 0; strategyIndex < teamSize; ++strategyIndex) {
-                Policy policy = new NaivePolicy() ;
-                strategies[strategyIndex] = new MyStrategy(policy);
+                strategies[strategyIndex] = strategy;
             }
 
             PlayerContext playerContext;
