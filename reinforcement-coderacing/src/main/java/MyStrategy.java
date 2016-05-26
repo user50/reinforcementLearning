@@ -1,9 +1,9 @@
 import com.example.montecarlo.Step;
 import math.Vector;
 import model.*;
-import policy.CodeRacingAction;
+import action.CodeRacingAction;
 import policy.Policy;
-import policy.CodeRacingState;
+import state.CodeRacingState;
 
 import java.util.*;
 
@@ -33,16 +33,17 @@ public final class MyStrategy implements Strategy {
             double targetDistance = length(me2target);
             Vector speedDirection = new Vector(scalarProd(normalise(me2target), normalise(mySpeed) ), vectorProd(normalise(me2target), normalise(mySpeed)));
 
-            CodeRacingState state = new CodeRacingState(targetDistance, speedDirection);
+            CodeRacingState state = new CodeRacingState(targetDistance, speedDirection, self.getEnginePower(), self.getWheelTurn());
             CodeRacingAction action = policy.get(state);
 
-            System.out.println(action.getWheelTurn() + " : " + action.getEnginePower());
-            move.setWheelTurn(action.getWheelTurn());
-            move.setEnginePower(action.getEnginePower());
+            System.out.println(action.getDeltaWheelTurn() + " : " + action.getDeltaEnginePower()+"  :  "+world.getTick());
+
+            move.setWheelTurn(self.getWheelTurn() + action.getDeltaWheelTurn());
+            move.setEnginePower(self.getEnginePower() + action.getDeltaEnginePower());
 
             double reward = getReward(world);
-
-            if (preState != null && world.getTick() > 188)
+            self.getAngularSpeed();
+            if (preState != null && world.getTick() > 181)
                 steps.add(new Step(preState, preAction, state, reward));
 
 

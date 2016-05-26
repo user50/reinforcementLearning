@@ -18,6 +18,11 @@ public class TableFunction<Arg> implements UpdatableFunction<Arg> {
         this.updateStrategy = updateStrategy;
     }
 
+    public TableFunction(UpdateTableStrategy<Arg> updateStrategy, Map<Arg, Double> table) {
+        this.updateStrategy = updateStrategy;
+        this.table = table;
+    }
+
     public TableFunction(Map<Arg, Double> table) {
         this.table = table;
     }

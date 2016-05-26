@@ -3,7 +3,7 @@ package com.example.common;
 /**
  * Created by user50 on 14.01.2015.
  */
-public class StateAction<S extends State, A extends Action> {
+public class StateAction<S extends State, A extends Action>  {
 
     private S state;
     private A action;
