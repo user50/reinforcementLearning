@@ -2,6 +2,7 @@ import action.Actions;
 import com.example.montecarlo.Simulator;
 import com.example.montecarlo.Step;
 import action.CodeRacingAction;
+import policy.ReinforcementPolicy;
 import state.CodeRacingState;
 import policy.ExplorationPolicy;
 import policy.NaivePolicy;
@@ -16,9 +17,9 @@ public class CodeRacingSimulator implements Simulator<CodeRacingState, CodeRacin
         try {
             Process p = Runtime.getRuntime().exec("reinforcement-coderacing\\start.bat");
 
-            Thread.sleep(1000);
+            Thread.sleep(2000);
 
-            Policy policy = new NaivePolicy();
+            Policy policy = new ReinforcementPolicy(strategy);
             policy = new ExplorationPolicy(policy, Actions.getActions());
 
             MyStrategy myStrategy = new MyStrategy(policy);

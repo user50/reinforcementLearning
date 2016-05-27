@@ -33,18 +33,18 @@ public final class MyStrategy implements Strategy {
             double targetDistance = length(me2target);
             Vector speedDirection = new Vector(scalarProd(normalise(me2target), normalise(mySpeed) ), vectorProd(normalise(me2target), normalise(mySpeed)));
 
-            CodeRacingState state = new CodeRacingState(targetDistance, speedDirection, self.getEnginePower(), self.getWheelTurn());
+            CodeRacingState state = new CodeRacingState(targetDistance, speedDirection, self.getEnginePower(), self.getWheelTurn(), me);
             CodeRacingAction action = policy.get(state);
-
-            System.out.println(action.getDeltaWheelTurn() + " : " + action.getDeltaEnginePower()+"  :  "+world.getTick());
 
             move.setWheelTurn(self.getWheelTurn() + action.getDeltaWheelTurn());
             move.setEnginePower(self.getEnginePower() + action.getDeltaEnginePower());
 
-            double reward = getReward(world);
             self.getAngularSpeed();
-            if (preState != null && world.getTick() > 181)
+            if (preState != null && world.getTick() > 181) {
+                double reward  = world.getTick() < world.getLastTickIndex() ? 0 : getReward(world);
                 steps.add(new Step(preState, preAction, state, reward));
+
+            }
 
 
             preState = state;
@@ -66,6 +66,9 @@ public final class MyStrategy implements Strategy {
             if (player.getName().equals(getClass().getName())) {
                 int reward = player.getScore() - score;
                 score = player.getScore();
+
+                if (reward>0)
+                    System.out.println(player.getScore());
 
                 return score;
             }

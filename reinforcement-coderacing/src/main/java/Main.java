@@ -1,32 +1,51 @@
-import state.CodeRacingStateComparator;
-import com.example.common.State;
-import com.example.common.UpdatableFunction;
+import action.CodeRacingAction;
+import action.CodeRacingTransitionModel;
+import com.example.common.*;
 import com.example.common.table.ExponentialMeanStrategy;
 import com.example.common.table.TableFunction;
+import com.example.dp.ImproveStrategyOperation;
 import com.example.montecarlo.MKFirstVisitMethod;
-import com.example.montecarlo.StateArgumentBuilder;
+import com.example.montecarlo.StateActionArgumentBuilder;
 import com.example.montecarlo.Step;
-import action.CodeRacingAction;
+import policy.DefaultStrategy;
+import policy.NaivePolicy;
 import state.CodeRacingState;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeMap;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
-        List<Step<CodeRacingState, CodeRacingAction>> steps = new CodeRacingSimulator().generateEpisode(null);
 
         CodeRacingSimulator aimaSimulator = new CodeRacingSimulator();
 
-        MKFirstVisitMethod<CodeRacingState, CodeRacingAction> firstVisitMethod = new MKFirstVisitMethod<>(aimaSimulator, 10, 0.9);
+        MKFirstVisitMethod<CodeRacingState, CodeRacingAction> firstVisitMethod = new MKFirstVisitMethod<>(aimaSimulator, 1, 0.999);
 
-        TableFunction<State> tableFunction = new TableFunction<>(new ExponentialMeanStrategy<>(0.05), new TreeMap<>(new CodeRacingStateComparator()));
-        UpdatableFunction<State> function =  firstVisitMethod.execute(null, new StateArgumentBuilder(), tableFunction);
+        TableFunction<StateAction> tableFunction = new TableFunction<>(new ExponentialMeanStrategy<>(0.05));
 
-        save(steps);
+
+        TableStrategy<CodeRacingState,CodeRacingAction> strategy = new TableStrategy<>(new DefaultStrategy(new NaivePolicy()));
+
+        for (int i = 0;i<3000;i++) {
+            UpdatableFunction<StateAction> function =  firstVisitMethod.execute(strategy, new StateActionArgumentBuilder(), tableFunction);
+
+            BestActionByActionValueFunc<CodeRacingState,CodeRacingAction> bestAction =  new BestActionByActionValueFunc(new CodeRacingTransitionModel(), function);
+
+            Set<CodeRacingState> states = tableFunction.getTable().keySet().stream().map(step -> (CodeRacingState) step.getState()).collect(Collectors.toSet());
+            new ImproveStrategyOperation<>(new ArrayList<CodeRacingState>(states), bestAction).access(strategy);
+        }
+
+        try {
+            new ObjectOutputStream(new FileOutputStream("ActionValueFunction")).writeObject(tableFunction);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     private static void save(List<Step<CodeRacingState, CodeRacingAction>> steps) throws FileNotFoundException {

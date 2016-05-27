@@ -2,13 +2,14 @@ package com.example.common.table;
 
 import com.example.common.UpdatableFunction;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by user50 on 14.01.2015.
  */
-public class TableFunction<Arg> implements UpdatableFunction<Arg> {
+public class TableFunction<Arg> implements UpdatableFunction<Arg>, Serializable {
 
     protected Map<Arg, Double> table = new HashMap<Arg, Double>();
 
@@ -43,4 +44,6 @@ public class TableFunction<Arg> implements UpdatableFunction<Arg> {
     public void update(Arg argument, double value) {
         updateStrategy.update(table, argument, value);
     }
+
+
 }

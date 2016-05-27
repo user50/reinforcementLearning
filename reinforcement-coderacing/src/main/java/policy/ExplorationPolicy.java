@@ -17,7 +17,7 @@ public class ExplorationPolicy implements Policy{
 
     @Override
     public CodeRacingAction get(CodeRacingState state) {
-        if (Math.random()>0.50)
+        if (Math.random()>0.90)
             return actions.get((int)(Math.random() * actions.size()));
 
         return policy.get(state);

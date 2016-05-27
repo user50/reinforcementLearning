@@ -3,10 +3,12 @@ package com.example.montecarlo;
 import com.example.common.Action;
 import com.example.common.State;
 
+import java.io.Serializable;
+
 /**
  * Created by user50 on 02.01.2015.
  */
-public class Step<S extends State,A extends Action> {
+public class Step<S extends State,A extends Action> implements Serializable {
     S state;
     A action;
     S nextState;

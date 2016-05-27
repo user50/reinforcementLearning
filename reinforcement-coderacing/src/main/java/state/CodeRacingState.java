@@ -3,18 +3,26 @@ package state;
 import com.example.common.State;
 import math.Vector;
 
-public class CodeRacingState implements State {
+import java.io.Serializable;
+
+public class CodeRacingState implements State, Serializable {
 
     double targetDistance;
     Vector speedDirection;
     double enginePower;
     double wheelTurn;
+    Vector me;
 
-    public CodeRacingState(double targetDistance, Vector speedDirection, double enginePower, double wheelTurn) {
+    CodeRacingPoint point;
+
+    public CodeRacingState(double targetDistance, Vector speedDirection, double enginePower, double wheelTurn, Vector me) {
         this.targetDistance = targetDistance;
         this.speedDirection = speedDirection;
         this.enginePower = enginePower;
         this.wheelTurn = wheelTurn;
+        this.me = me;
+
+        point = CodeRacingStateUtil.from(this);
     }
 
     public double getTargetDistance() {
@@ -33,6 +41,10 @@ public class CodeRacingState implements State {
         return wheelTurn;
     }
 
+    public Vector getMe() {
+        return me;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -40,24 +52,12 @@ public class CodeRacingState implements State {
 
         CodeRacingState that = (CodeRacingState) o;
 
-        if (Double.compare(that.targetDistance, targetDistance) != 0) return false;
-        if (Double.compare(that.enginePower, enginePower) != 0) return false;
-        if (Double.compare(that.wheelTurn, wheelTurn) != 0) return false;
-        return !(speedDirection != null ? !speedDirection.equals(that.speedDirection) : that.speedDirection != null);
+        return point.equals(that.point);
 
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        temp = Double.doubleToLongBits(targetDistance);
-        result = (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (speedDirection != null ? speedDirection.hashCode() : 0);
-        temp = Double.doubleToLongBits(enginePower);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(wheelTurn);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
+        return point.hashCode();
     }
 }
