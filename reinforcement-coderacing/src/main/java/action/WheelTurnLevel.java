@@ -1,7 +1,7 @@
 package action;
 
 public enum  WheelTurnLevel {
-    maximal(0.05),high(0.015), medium(0.002), low(0.0005);
+    maximal(0.05), medium(0.002);
 
     double value;
 

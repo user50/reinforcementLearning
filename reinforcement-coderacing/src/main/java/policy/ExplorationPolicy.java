@@ -21,10 +21,21 @@ public class ExplorationPolicy implements Strategy<CodeRacingState, CodeRacingAc
         return 0;
     }
 
+
+    int tick = 0;
+    CodeRacingAction action;
     @Override
     public CodeRacingAction generate(CodeRacingState state) {
-        if (Math.random()>0.50)
-            return actions.get((int)(Math.random() * actions.size()));
+        if (Math.random()>1) {
+            tick = 20;
+
+            action = actions.get((int) (Math.random() * actions.size()));
+        }
+
+        if (--tick>0)
+        {
+            return action;
+        }
 
         return strategy.generate(state);
     }

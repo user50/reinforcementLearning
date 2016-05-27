@@ -1,7 +1,7 @@
 package action;
 
 public enum DeltaEnginePowerLevel {
-    maximal(0.025),medium(0.005), low(0.001) ;
+    maximal(0.025) ;
 
     double value;
 

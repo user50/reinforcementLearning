@@ -26,10 +26,10 @@ public final class MyStrategy implements Strategy {
 
     @Override
     public void move(Car self, World world, Game game, Move move) {
-        int x = (int)self.getX()/100;
-        int y = (int)self.getY()/100;
-        int speedX = LogScale.index(self.getSpeedX(), 0.05, 10, 14);
-        int speedY = LogScale.index(self.getSpeedY(), 0.05, 10, 14);
+        int x = (int)self.getX()/400;
+        int y = (int)self.getY()/400;
+        int speedX = LogScale.index(self.getSpeedX(), 0.05, 10, 4);
+        int speedY = LogScale.index(self.getSpeedY(), 0.05, 10, 4);
 
         CodeRacingState state = new CodeRacingState(x, y, speedX, speedY);
         CodeRacingAction action = policy.generate(state);

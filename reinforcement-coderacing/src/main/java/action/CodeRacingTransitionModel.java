@@ -17,7 +17,7 @@ public class CodeRacingTransitionModel implements TransitionModel<CodeRacingStat
 
     @Override
     public double calculate(CodeRacingState state, CodeRacingAction action, CodeRacingState nextState) {
-        if (point2count.containsKey(new Point(state, action)))
+        if (!point2count.containsKey(new Point(state, action)))
             return 0;
 
         int visits = point2count.get(new Point(state, action));
@@ -52,11 +52,11 @@ public class CodeRacingTransitionModel implements TransitionModel<CodeRacingStat
         possibleStates.merge(new Point(state, action),states , (ov, nv) -> {ov.addAll(nv); return ov;});
     }
 
-    private static class Point implements Serializable
+    public static class Point implements Serializable
     {
-        CodeRacingState state;
-        CodeRacingAction action;
-        CodeRacingState nextState;
+        public CodeRacingState state;
+        public CodeRacingAction action;
+        public CodeRacingState nextState;
 
         public Point(CodeRacingState state, CodeRacingAction action, CodeRacingState nextState) {
             this.state = state;

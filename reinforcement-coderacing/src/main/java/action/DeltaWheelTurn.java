@@ -27,4 +27,22 @@ public class DeltaWheelTurn implements Serializable {
         return level.getValue() * sign;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DeltaWheelTurn that = (DeltaWheelTurn) o;
+
+        if (positiveDirection != that.positiveDirection) return false;
+        return level == that.level;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = level.hashCode();
+        result = 31 * result + (positiveDirection ? 1 : 0);
+        return result;
+    }
 }

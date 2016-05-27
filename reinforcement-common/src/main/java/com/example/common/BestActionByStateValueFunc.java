@@ -13,7 +13,7 @@ public class BestActionByStateValueFunc<S extends State, A extends Action> imple
     UpdatableFunction<S> stateValueFunction;
     double gamma;
 
-    public BestActionByStateValueFunc(TransitionModel<S, A> transitionModel, RewardModel<S, A> rewardModel, UpdatableFunction<S> stateValueFunction, double gamma) {
+    public BestActionByStateValueFunc(TransitionModel<S, A> transitionModel, RewardModel<S, A> rewardModel, UpdatableFunction stateValueFunction, double gamma) {
         this.transitionModel = transitionModel;
         this.rewardModel = rewardModel;
         this.stateValueFunction = stateValueFunction;

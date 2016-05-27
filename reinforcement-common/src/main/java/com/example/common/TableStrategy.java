@@ -10,8 +10,9 @@ public class TableStrategy<S extends State,A extends Action> implements Strategy
     Map<S,A> table = new HashMap<>();
     Strategy<S,A> defaultStrategy;
 
-    public TableStrategy(Strategy<S, A> defaultStrategy) {
+    public TableStrategy(Strategy<S, A> defaultStrategy, Map<S,A> table) {
         this.defaultStrategy = defaultStrategy;
+        this.table = table;
     }
 
     @Override
@@ -19,10 +20,21 @@ public class TableStrategy<S extends State,A extends Action> implements Strategy
         throw new NotImplementedException();
     }
 
+
+    int count = 0;
+    int total = 0;
+
     @Override
     public A generate(S state) {
-        if (!table.containsKey(state))
+        total++;
+        if (!table.containsKey(state)) {
+            count++;
+
+
+//            System.out.println((double)count/total);
+
             return defaultStrategy.generate(state);
+        }
 
         return table.get(state);
     }
