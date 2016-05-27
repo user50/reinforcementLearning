@@ -8,26 +8,26 @@ public class Actions {
 
     public static List<CodeRacingAction> getActions()
     {
-        List<Optional<DeltaWheelTurn>> deltaWheelTurns = new ArrayList<>();
-        deltaWheelTurns.add(Optional.empty());
+        List<DeltaWheelTurn> deltaWheelTurns = new ArrayList<>();
+        deltaWheelTurns.add(null);
 
         for (WheelTurnLevel wheelTurnLevel : WheelTurnLevel.values()) {
-            deltaWheelTurns.add(Optional.of(new DeltaWheelTurn(wheelTurnLevel, true)));
-            deltaWheelTurns.add(Optional.of(new DeltaWheelTurn(wheelTurnLevel, false)));
+            deltaWheelTurns.add(new DeltaWheelTurn(wheelTurnLevel, true));
+            deltaWheelTurns.add(new DeltaWheelTurn(wheelTurnLevel, false));
         }
 
-        List<Optional<DeltaEnginePower>> deltaEnginePowers  = new ArrayList<>();
-        deltaEnginePowers.add(Optional.empty());
+        List<DeltaEnginePower> deltaEnginePowers  = new ArrayList<>();
+        deltaEnginePowers.add(null);
 
         for (DeltaEnginePowerLevel powerLevel : DeltaEnginePowerLevel.values()) {
-            deltaEnginePowers.add(Optional.of(new DeltaEnginePower(powerLevel, true)));
-            deltaEnginePowers.add(Optional.of(new DeltaEnginePower(powerLevel, false)));
+            deltaEnginePowers.add(new DeltaEnginePower(powerLevel, true));
+            deltaEnginePowers.add(new DeltaEnginePower(powerLevel, false));
         }
 
         List<CodeRacingAction> actions = new ArrayList<>();
 
-        for (Optional<DeltaWheelTurn> deltaWheelTurn : deltaWheelTurns) {
-            for (Optional<DeltaEnginePower> deltaEnginePower : deltaEnginePowers) {
+        for (DeltaWheelTurn deltaWheelTurn : deltaWheelTurns) {
+            for (DeltaEnginePower deltaEnginePower : deltaEnginePowers) {
                 actions.add(new CodeRacingAction(deltaWheelTurn, deltaEnginePower));
             }
         }

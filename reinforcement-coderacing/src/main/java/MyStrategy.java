@@ -1,4 +1,6 @@
+import com.example.common.*;
 import com.example.montecarlo.Step;
+import math.LogScale;
 import math.Vector;
 import model.*;
 import action.CodeRacingAction;
@@ -11,49 +13,37 @@ import static math.VectorAlgebra.*;
 
 public final class MyStrategy implements Strategy {
 
-    Policy policy;
+    com.example.common.Strategy<CodeRacingState, CodeRacingAction> policy;
     int score = 0;
     CodeRacingState preState;
     CodeRacingAction preAction;
 
     List<Step<CodeRacingState, CodeRacingAction>> steps = new ArrayList<>();
 
-    public MyStrategy(Policy policy) {
+    public MyStrategy(com.example.common.Strategy<CodeRacingState, CodeRacingAction> policy) {
         this.policy = policy;
     }
 
     @Override
     public void move(Car self, World world, Game game, Move move) {
-        try {
-            Vector me = new Vector(self.getX(), -self.getY());
-            Vector mySpeed = new Vector(self.getSpeedX(), -self.getSpeedY());
-            Vector nextWayTail = new Vector(self.getNextWaypointX() * 800 + 400, -self.getNextWaypointY() * 800 - 400);
+        int x = (int)self.getX()/100;
+        int y = (int)self.getY()/100;
+        int speedX = LogScale.index(self.getSpeedX(), 0.05, 10, 14);
+        int speedY = LogScale.index(self.getSpeedY(), 0.05, 10, 14);
 
-            Vector me2target = difference(nextWayTail, me);
-            double targetDistance = length(me2target);
-            Vector speedDirection = new Vector(scalarProd(normalise(me2target), normalise(mySpeed) ), vectorProd(normalise(me2target), normalise(mySpeed)));
+        CodeRacingState state = new CodeRacingState(x, y, speedX, speedY);
+        CodeRacingAction action = policy.generate(state);
 
-            CodeRacingState state = new CodeRacingState(targetDistance, speedDirection, self.getEnginePower(), self.getWheelTurn(), me);
-            CodeRacingAction action = policy.get(state);
+        move.setWheelTurn(self.getWheelTurn() + action.getDeltaWheelTurn());
+        move.setEnginePower(self.getEnginePower() + action.getDeltaEnginePower());
 
-            move.setWheelTurn(self.getWheelTurn() + action.getDeltaWheelTurn());
-            move.setEnginePower(self.getEnginePower() + action.getDeltaEnginePower());
-
-            self.getAngularSpeed();
-            if (preState != null && world.getTick() > 181) {
-                double reward  = world.getTick() < world.getLastTickIndex() ? 0 : getReward(world);
-                steps.add(new Step(preState, preAction, state, reward));
-
-            }
-
-
-            preState = state;
-            preAction = action;
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (preState != null && world.getTick() > 181) {
+            double reward  = getReward(world);
+            steps.add(new Step(preState, preAction, state, reward));
         }
 
+        preState = state;
+        preAction = action;
     }
 
     public List<Step<CodeRacingState, CodeRacingAction>> getSteps() {
@@ -70,7 +60,7 @@ public final class MyStrategy implements Strategy {
                 if (reward>0)
                     System.out.println(player.getScore());
 
-                return score;
+                return ((double)reward);
             }
         }
 

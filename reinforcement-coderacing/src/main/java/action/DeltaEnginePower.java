@@ -1,6 +1,8 @@
 package action;
 
-public class DeltaEnginePower {
+import java.io.Serializable;
+
+public class DeltaEnginePower implements Serializable{
 
     DeltaEnginePowerLevel deltaEnginePowerLevel;
     boolean direction;

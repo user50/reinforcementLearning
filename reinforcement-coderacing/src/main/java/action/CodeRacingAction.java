@@ -3,30 +3,29 @@ package action;
 import com.example.common.Action;
 
 import java.io.Serializable;
-import java.util.Optional;
 
 public class CodeRacingAction implements Action, Serializable {
 
-    Optional<DeltaWheelTurn> deltaWheelTurn;
-    Optional<DeltaEnginePower> deltaPower;
+    DeltaWheelTurn deltaWheelTurn;
+    DeltaEnginePower deltaPower;
 
-    public CodeRacingAction(Optional<DeltaWheelTurn> deltaWheelTurn, Optional<DeltaEnginePower> deltaPower) {
+    public CodeRacingAction(DeltaWheelTurn deltaWheelTurn, DeltaEnginePower deltaPower) {
         this.deltaWheelTurn = deltaWheelTurn;
         this.deltaPower = deltaPower;
     }
 
     public double getDeltaWheelTurn() {
-        if (!deltaWheelTurn.isPresent())
+        if (deltaWheelTurn == null)
             return 0;
 
-        return deltaWheelTurn.get().getDeltaWheelTurn();
+        return deltaWheelTurn.getDeltaWheelTurn();
     }
 
     public double getDeltaEnginePower() {
-        if (!deltaPower.isPresent())
+        if (deltaPower == null)
             return 0;
 
-        return deltaPower.get().getDeltaEnginePower();
+        return deltaPower.getDeltaEnginePower();
     }
 
     @Override
@@ -36,15 +35,24 @@ public class CodeRacingAction implements Action, Serializable {
 
         CodeRacingAction that = (CodeRacingAction) o;
 
-        if (!deltaWheelTurn.equals(that.deltaWheelTurn)) return false;
-        return deltaPower.equals(that.deltaPower);
+        if (deltaWheelTurn != null ? !deltaWheelTurn.equals(that.deltaWheelTurn) : that.deltaWheelTurn != null)
+            return false;
+        return !(deltaPower != null ? !deltaPower.equals(that.deltaPower) : that.deltaPower != null);
 
     }
 
     @Override
     public int hashCode() {
-        int result = deltaWheelTurn.hashCode();
-        result = 31 * result + deltaPower.hashCode();
+        int result = deltaWheelTurn != null ? deltaWheelTurn.hashCode() : 0;
+        result = 31 * result + (deltaPower != null ? deltaPower.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "deltaWheelTurn=" + getDeltaWheelTurn() +
+                ", deltaPower=" + getDeltaEnginePower() +
+                '}';
     }
 }

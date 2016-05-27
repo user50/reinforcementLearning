@@ -1,9 +1,11 @@
 package com.example.common;
 
+import java.io.Serializable;
+
 /**
  * Created by user50 on 14.01.2015.
  */
-public class StateAction<S extends State, A extends Action>  {
+public class StateAction<S extends State, A extends Action> implements Serializable {
 
     private S state;
     private A action;

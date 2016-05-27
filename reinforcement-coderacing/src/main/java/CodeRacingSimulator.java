@@ -5,7 +5,6 @@ import action.CodeRacingAction;
 import policy.ReinforcementPolicy;
 import state.CodeRacingState;
 import policy.ExplorationPolicy;
-import policy.NaivePolicy;
 import policy.Policy;
 
 import java.io.IOException;
@@ -19,10 +18,7 @@ public class CodeRacingSimulator implements Simulator<CodeRacingState, CodeRacin
 
             Thread.sleep(2000);
 
-            Policy policy = new ReinforcementPolicy(strategy);
-            policy = new ExplorationPolicy(policy, Actions.getActions());
-
-            MyStrategy myStrategy = new MyStrategy(policy);
+            MyStrategy myStrategy = new MyStrategy(strategy);
 
             new Runner(new String[]{"127.0.0.1", "31001", "0000000000000000"}, myStrategy).run();
 

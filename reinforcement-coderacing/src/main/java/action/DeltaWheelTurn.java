@@ -1,6 +1,8 @@
 package action;
 
-public class DeltaWheelTurn {
+import java.io.Serializable;
+
+public class DeltaWheelTurn implements Serializable {
 
     WheelTurnLevel level;
     boolean positiveDirection;

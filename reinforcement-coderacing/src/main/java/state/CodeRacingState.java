@@ -1,48 +1,21 @@
 package state;
 
 import com.example.common.State;
-import math.Vector;
 
 import java.io.Serializable;
 
 public class CodeRacingState implements State, Serializable {
 
-    double targetDistance;
-    Vector speedDirection;
-    double enginePower;
-    double wheelTurn;
-    Vector me;
+    int x;
+    int y;
+    int speedX;
+    int speedY;
 
-    CodeRacingPoint point;
-
-    public CodeRacingState(double targetDistance, Vector speedDirection, double enginePower, double wheelTurn, Vector me) {
-        this.targetDistance = targetDistance;
-        this.speedDirection = speedDirection;
-        this.enginePower = enginePower;
-        this.wheelTurn = wheelTurn;
-        this.me = me;
-
-        point = CodeRacingStateUtil.from(this);
-    }
-
-    public double getTargetDistance() {
-        return targetDistance;
-    }
-
-    public Vector getSpeedDirection() {
-        return speedDirection;
-    }
-
-    public double getEnginePower() {
-        return enginePower;
-    }
-
-    public double getWheelTurn() {
-        return wheelTurn;
-    }
-
-    public Vector getMe() {
-        return me;
+    public CodeRacingState(int x, int y, int speedX, int speedY) {
+        this.x = x;
+        this.y = y;
+        this.speedX = speedX;
+        this.speedY = speedY;
     }
 
     @Override
@@ -52,12 +25,29 @@ public class CodeRacingState implements State, Serializable {
 
         CodeRacingState that = (CodeRacingState) o;
 
-        return point.equals(that.point);
+        if (x != that.x) return false;
+        if (y != that.y) return false;
+        if (speedX != that.speedX) return false;
+        return speedY == that.speedY;
 
     }
 
     @Override
     public int hashCode() {
-        return point.hashCode();
+        int result = x;
+        result = 31 * result + y;
+        result = 31 * result + speedX;
+        result = 31 * result + speedY;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "x=" + x +
+                ", y=" + y +
+                ", speedX=" + speedX +
+                ", speedY=" + speedY +
+                '}';
     }
 }

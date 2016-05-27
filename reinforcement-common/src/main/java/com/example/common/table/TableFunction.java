@@ -15,10 +15,6 @@ public class TableFunction<Arg> implements UpdatableFunction<Arg>, Serializable 
 
     UpdateTableStrategy<Arg> updateStrategy;
 
-    public TableFunction(UpdateTableStrategy<Arg> updateStrategy) {
-        this.updateStrategy = updateStrategy;
-    }
-
     public TableFunction(UpdateTableStrategy<Arg> updateStrategy, Map<Arg, Double> table) {
         this.updateStrategy = updateStrategy;
         this.table = table;
