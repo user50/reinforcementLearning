@@ -1,3 +1,4 @@
+import abstractions.CodeRacingStrategy;
 import model.Car;
 import model.Game;
 import model.Move;
@@ -8,9 +9,9 @@ import java.io.IOException;
 public final class Runner {
     private final RemoteProcessClient remoteProcessClient;
     private final String token;
-    private Strategy strategy;
+    private CodeRacingStrategy strategy;
 
-    public Runner(String[] args, Strategy strategy) throws IOException {
+    public Runner(String[] args, CodeRacingStrategy strategy) throws IOException {
         remoteProcessClient = new RemoteProcessClient(args[0], Integer.parseInt(args[1]));
         token = args[2];
         this.strategy = strategy;
@@ -23,7 +24,7 @@ public final class Runner {
             remoteProcessClient.writeProtocolVersion();
             Game game = remoteProcessClient.readGameContext();
 
-            Strategy[] strategies = new Strategy[teamSize];
+            CodeRacingStrategy[] strategies = new CodeRacingStrategy[teamSize];
 
             for (int strategyIndex = 0; strategyIndex < teamSize; ++strategyIndex) {
                 strategies[strategyIndex] = strategy;

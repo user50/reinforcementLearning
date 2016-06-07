@@ -31,7 +31,7 @@ public class TableStrategy<S extends State,A extends Action> implements Strategy
             count++;
 
 
-//            System.out.println((double)count/total);
+            System.out.println((double)count/total);
 
             return defaultStrategy.generate(state);
         }

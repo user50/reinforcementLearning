@@ -1,3 +1,5 @@
+package abstractions;
+
 import model.Car;
 import model.Game;
 import model.Move;
@@ -8,7 +10,7 @@ import model.World;
  * Каждая пользовательская стратегия должна реализовывать этот интерфейс.
  * Может отсутствовать в некоторых языковых пакетах, если язык не поддерживает интерфейсы.
  */
-public interface Strategy {
+public interface CodeRacingStrategy {
     /**
      * Основной метод стратегии, осуществляющий управление кодемобилем.
      * Вызывается каждый тик для каждого кодемобиля.

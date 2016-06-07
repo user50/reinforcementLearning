@@ -1,10 +1,8 @@
-package state;
-
-import math.Vector;
+package trivial;
 
 import java.io.Serializable;
 
-public class CodeRacingPoint implements Serializable {
+public class CodeRacePoint implements Serializable {
 
     int targetDistance;
     int speedX;
@@ -14,7 +12,7 @@ public class CodeRacingPoint implements Serializable {
     int meX;
     int meY;
 
-    public CodeRacingPoint(int targetDistance, int speedX, int speedY, int enginePower, int wheelTurn, int meX, int meY) {
+    public CodeRacePoint(int targetDistance, int speedX, int speedY, int enginePower, int wheelTurn, int meX, int meY) {
         this.targetDistance = targetDistance;
         this.speedX = speedX;
         this.speedY = speedY;
@@ -29,7 +27,7 @@ public class CodeRacingPoint implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CodeRacingPoint that = (CodeRacingPoint) o;
+        CodeRacePoint that = (CodeRacePoint) o;
 
         if (targetDistance != that.targetDistance) return false;
         if (speedX != that.speedX) return false;

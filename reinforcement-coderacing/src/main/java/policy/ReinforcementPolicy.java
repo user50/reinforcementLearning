@@ -1,19 +1,19 @@
 package policy;
 
-import action.CodeRacingAction;
+import trivial.CodeRacingAction;
 import com.example.common.Strategy;
-import state.CodeRacingState;
+import trivial.CodeRaceState;
 
 public class ReinforcementPolicy implements Policy {
 
-    Strategy<CodeRacingState, CodeRacingAction> strategy;
+    Strategy<CodeRaceState, CodeRacingAction> strategy;
 
-    public ReinforcementPolicy(Strategy<CodeRacingState, CodeRacingAction> strategy) {
+    public ReinforcementPolicy(Strategy<CodeRaceState, CodeRacingAction> strategy) {
         this.strategy = strategy;
     }
 
     @Override
-    public CodeRacingAction get(CodeRacingState state) {
+    public CodeRacingAction get(CodeRaceState state) {
         return strategy.generate(state);
     }
 }

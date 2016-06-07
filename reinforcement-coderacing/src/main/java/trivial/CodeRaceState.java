@@ -1,17 +1,17 @@
-package state;
+package trivial;
 
 import com.example.common.State;
 
 import java.io.Serializable;
 
-public class CodeRacingState implements State, Serializable {
+public class CodeRaceState implements State, Serializable {
 
     int x;
     int y;
     int speedX;
     int speedY;
 
-    public CodeRacingState(int x, int y, int speedX, int speedY) {
+    public CodeRaceState(int x, int y, int speedX, int speedY) {
         this.x = x;
         this.y = y;
         this.speedX = speedX;
@@ -23,7 +23,7 @@ public class CodeRacingState implements State, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CodeRacingState that = (CodeRacingState) o;
+        CodeRaceState that = (CodeRaceState) o;
 
         if (x != that.x) return false;
         if (y != that.y) return false;

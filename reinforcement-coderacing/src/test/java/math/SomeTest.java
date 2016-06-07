@@ -1,12 +1,12 @@
 package math;
 
 import action.Actions;
-import action.CodeRacingAction;
+import trivial.CodeRacingAction;
 import com.example.common.StateAction;
 import com.example.common.table.ExponentialMeanStrategy;
 import com.example.common.table.TableFunction;
 import org.junit.Test;
-import state.CodeRacingState;
+import trivial.CodeRaceState;
 
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
@@ -22,9 +22,9 @@ public class SomeTest {
 
         TableFunction<StateAction> tableFunction = new TableFunction<>(new ExponentialMeanStrategy<>(0.05), table);
 
-        Set<CodeRacingState> states = tableFunction.getTable().keySet().stream().map(step -> (CodeRacingState) step.getState()).collect(Collectors.toSet());
+        Set<CodeRaceState> states = tableFunction.getTable().keySet().stream().map(step -> (CodeRaceState) step.getState()).collect(Collectors.toSet());
 
-        for (CodeRacingState state : states) {
+        for (CodeRaceState state : states) {
             for (CodeRacingAction action : Actions.getActions()) {
                 StateAction stateAction = new StateAction(state, action);
                 if (table.containsKey(stateAction))

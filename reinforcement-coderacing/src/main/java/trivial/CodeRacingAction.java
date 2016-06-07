@@ -1,5 +1,7 @@
-package action;
+package trivial;
 
+import action.DeltaEnginePower;
+import action.DeltaWheelTurn;
 import com.example.common.Action;
 
 import java.io.Serializable;

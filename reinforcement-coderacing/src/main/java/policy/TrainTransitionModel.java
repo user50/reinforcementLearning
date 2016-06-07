@@ -1,30 +1,30 @@
 package policy;
 
-import action.CodeRacingAction;
+import trivial.CodeRacingAction;
 import action.CodeRacingTransitionModel;
 import com.example.common.Strategy;
-import state.CodeRacingState;
+import trivial.CodeRaceState;
 
-public class TrainTransitionModel implements Strategy<CodeRacingState, CodeRacingAction> {
+public class TrainTransitionModel implements Strategy<CodeRaceState, CodeRacingAction> {
 
-    Strategy<CodeRacingState, CodeRacingAction> strategy;
+    Strategy<CodeRaceState, CodeRacingAction> strategy;
     CodeRacingTransitionModel transitionModel;
 
-    CodeRacingState preState;
+    CodeRaceState preState;
     CodeRacingAction preAction;
 
-    public TrainTransitionModel(Strategy<CodeRacingState, CodeRacingAction> strategy, CodeRacingTransitionModel transitionModel) {
+    public TrainTransitionModel(Strategy<CodeRaceState, CodeRacingAction> strategy, CodeRacingTransitionModel transitionModel) {
         this.strategy = strategy;
         this.transitionModel = transitionModel;
     }
 
     @Override
-    public double calculate(CodeRacingState state, CodeRacingAction action) {
+    public double calculate(CodeRaceState state, CodeRacingAction action) {
         return strategy.calculate(state, action);
     }
 
     @Override
-    public CodeRacingAction generate(CodeRacingState state) {
+    public CodeRacingAction generate(CodeRaceState state) {
         if (preState != null)
         {
             transitionModel.update(preState, preAction, state);
@@ -39,7 +39,7 @@ public class TrainTransitionModel implements Strategy<CodeRacingState, CodeRacin
     }
 
     @Override
-    public void update(CodeRacingState state, CodeRacingAction action) {
+    public void update(CodeRaceState state, CodeRacingAction action) {
         strategy.update(state, action);
     }
 }

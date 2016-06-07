@@ -1,18 +1,14 @@
-import action.Actions;
 import com.example.montecarlo.Simulator;
 import com.example.montecarlo.Step;
-import action.CodeRacingAction;
-import policy.ReinforcementPolicy;
-import state.CodeRacingState;
-import policy.ExplorationPolicy;
-import policy.Policy;
+import trivial.CodeRacingAction;
+import trivial.CodeRaceState;
 
 import java.io.IOException;
 import java.util.List;
 
-public class CodeRacingSimulator implements Simulator<CodeRacingState, CodeRacingAction> {
+public class CodeRacingSimulator implements Simulator<CodeRaceState, CodeRacingAction> {
     @Override
-    public List<Step<CodeRacingState, CodeRacingAction>> generateEpisode(com.example.common.Strategy<CodeRacingState, CodeRacingAction> strategy) {
+    public List<Step<CodeRaceState, CodeRacingAction>> generateEpisode(com.example.common.Strategy<CodeRaceState, CodeRacingAction> strategy) {
         try {
             Process p = Runtime.getRuntime().exec("reinforcement-coderacing\\start.bat");
 

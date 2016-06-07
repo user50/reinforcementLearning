@@ -1,22 +1,22 @@
 package action;
 
 import com.example.common.TransitionModel;
-import state.CodeRacingState;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import trivial.CodeRacingAction;
+import trivial.CodeRaceState;
 
 import java.io.Serializable;
 import java.util.*;
 
-public class CodeRacingTransitionModel implements TransitionModel<CodeRacingState,CodeRacingAction>, Serializable{
+public class CodeRacingTransitionModel implements TransitionModel<CodeRaceState, CodeRacingAction>, Serializable{
 
     List<CodeRacingAction> actions = Actions.getActions();
 
     Map<Point, Integer> point2count = new HashMap<>();
-    Map<Point, Set<CodeRacingState>> possibleStates = new HashMap<>();
+    Map<Point, Set<CodeRaceState>> possibleStates = new HashMap<>();
 
 
     @Override
-    public double calculate(CodeRacingState state, CodeRacingAction action, CodeRacingState nextState) {
+    public double calculate(CodeRaceState state, CodeRacingAction action, CodeRaceState nextState) {
         if (!point2count.containsKey(new Point(state, action)))
             return 0;
 
@@ -30,41 +30,41 @@ public class CodeRacingTransitionModel implements TransitionModel<CodeRacingStat
     }
 
     @Override
-    public List<CodeRacingAction> getPossibleActions(CodeRacingState state) {
+    public List<CodeRacingAction> getPossibleActions(CodeRaceState state) {
         return actions;
     }
 
     @Override
-    public List<CodeRacingState> getPossibleStates(CodeRacingState state, CodeRacingAction action) {
+    public List<CodeRaceState> getPossibleStates(CodeRaceState state, CodeRacingAction action) {
         if (!possibleStates.containsKey(new Point(state, action)))
             return new ArrayList<>();
 
         return new ArrayList<>(possibleStates.get(new Point(state, action)));
     }
 
-    public void update(CodeRacingState state, CodeRacingAction action, CodeRacingState nextState)
+    public void update(CodeRaceState state, CodeRacingAction action, CodeRaceState nextState)
     {
         point2count.merge(new Point(state, action), 1, (ov,nv) -> ov + nv);
         point2count.merge(new Point(state, action, nextState), 1, (ov,nv) -> ov + nv);
 
-        Set<CodeRacingState> states = new HashSet<>();
+        Set<CodeRaceState> states = new HashSet<>();
         states.add(nextState);
         possibleStates.merge(new Point(state, action),states , (ov, nv) -> {ov.addAll(nv); return ov;});
     }
 
     public static class Point implements Serializable
     {
-        public CodeRacingState state;
+        public CodeRaceState state;
         public CodeRacingAction action;
-        public CodeRacingState nextState;
+        public CodeRaceState nextState;
 
-        public Point(CodeRacingState state, CodeRacingAction action, CodeRacingState nextState) {
+        public Point(CodeRaceState state, CodeRacingAction action, CodeRaceState nextState) {
             this.state = state;
             this.action = action;
             this.nextState = nextState;
         }
 
-        public Point(CodeRacingState state, CodeRacingAction action) {
+        public Point(CodeRaceState state, CodeRacingAction action) {
             this.state = state;
             this.action = action;
         }

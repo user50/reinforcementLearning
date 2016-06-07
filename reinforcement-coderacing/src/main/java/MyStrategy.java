@@ -1,26 +1,24 @@
-import com.example.common.*;
+import abstractions.CodeRacingStrategy;
 import com.example.montecarlo.Step;
-import math.LogScale;
 import math.Vector;
 import model.*;
-import action.CodeRacingAction;
-import policy.Policy;
-import state.CodeRacingState;
+import trivial.CodeRacingAction;
+import trivial.CodeRaceState;
 
 import java.util.*;
 
 import static math.VectorAlgebra.*;
 
-public final class MyStrategy implements Strategy {
+public final class MyStrategy implements CodeRacingStrategy {
 
-    com.example.common.Strategy<CodeRacingState, CodeRacingAction> policy;
+    com.example.common.Strategy<CodeRaceState, CodeRacingAction> policy;
     int score = 0;
-    CodeRacingState preState;
+    CodeRaceState preState;
     CodeRacingAction preAction;
 
-    List<Step<CodeRacingState, CodeRacingAction>> steps = new ArrayList<>();
+    List<Step<CodeRaceState, CodeRacingAction>> steps = new ArrayList<>();
 
-    public MyStrategy(com.example.common.Strategy<CodeRacingState, CodeRacingAction> policy) {
+    public MyStrategy(com.example.common.Strategy<CodeRaceState, CodeRacingAction> policy) {
         this.policy = policy;
     }
 
@@ -28,14 +26,14 @@ public final class MyStrategy implements Strategy {
     public void move(Car self, World world, Game game, Move move) {
         int x = (int)self.getX()/400;
         int y = (int)self.getY()/400;
-        int speedX = LogScale.index(self.getSpeedX(), 0.05, 10, 4);
-        int speedY = LogScale.index(self.getSpeedY(), 0.05, 10, 4);
+        int speedX = 0; //LogScale.index(self.getSpeedX(), 0.05, 10, 4);
+        int speedY = 0;// LogScale.index(self.getSpeedY(), 0.05, 10, 4);
 
-        CodeRacingState state = new CodeRacingState(x, y, speedX, speedY);
+        CodeRaceState state = new CodeRaceState(x, y, speedX, speedY);
         CodeRacingAction action = policy.generate(state);
 
         move.setWheelTurn(self.getWheelTurn() + action.getDeltaWheelTurn());
-        move.setEnginePower(self.getEnginePower() + action.getDeltaEnginePower());
+        move.setEnginePower(0.1);
 
         if (preState != null && world.getTick() > 181) {
             double reward  = getReward(world);
@@ -46,7 +44,7 @@ public final class MyStrategy implements Strategy {
         preAction = action;
     }
 
-    public List<Step<CodeRacingState, CodeRacingAction>> getSteps() {
+    public List<Step<CodeRaceState, CodeRacingAction>> getSteps() {
         return steps;
     }
 

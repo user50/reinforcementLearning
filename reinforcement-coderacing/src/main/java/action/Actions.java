@@ -1,8 +1,9 @@
 package action;
 
+import trivial.CodeRacingAction;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class Actions {
 
@@ -19,10 +20,6 @@ public class Actions {
         List<DeltaEnginePower> deltaEnginePowers  = new ArrayList<>();
         deltaEnginePowers.add(null);
 
-        for (DeltaEnginePowerLevel powerLevel : DeltaEnginePowerLevel.values()) {
-            deltaEnginePowers.add(new DeltaEnginePower(powerLevel, true));
-            deltaEnginePowers.add(new DeltaEnginePower(powerLevel, false));
-        }
 
         List<CodeRacingAction> actions = new ArrayList<>();
 
@@ -33,6 +30,19 @@ public class Actions {
         }
 
         return actions;
+    }
+
+    private static List<DeltaEnginePower> getEnginePowers()
+    {
+        List<DeltaEnginePower> deltaEnginePowers  = new ArrayList<>();
+        deltaEnginePowers.add(null);
+
+        for (DeltaEnginePowerLevel powerLevel : DeltaEnginePowerLevel.values()) {
+            deltaEnginePowers.add(new DeltaEnginePower(powerLevel, true));
+            deltaEnginePowers.add(new DeltaEnginePower(powerLevel, false));
+        }
+
+        return deltaEnginePowers;
     }
 
 }
