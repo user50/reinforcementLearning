@@ -6,16 +6,32 @@ import java.io.Serializable;
 
 public class CodeRaceState implements State, Serializable {
 
-    int x;
-    int y;
-    int speedX;
-    int speedY;
+    int targetDirection;
+    int wheelTurn;
+    int leftWall;
+    int rightWall;
 
-    public CodeRaceState(int x, int y, int speedX, int speedY) {
-        this.x = x;
-        this.y = y;
-        this.speedX = speedX;
-        this.speedY = speedY;
+    public CodeRaceState(int targetDirection, int wheelTurn, int leftWall, int rightWall) {
+        this.targetDirection = targetDirection;
+        this.wheelTurn = wheelTurn;
+        this.leftWall = leftWall;
+        this.rightWall = rightWall;
+    }
+
+    public int getTargetDirection() {
+        return targetDirection;
+    }
+
+    public int getWheelTurn() {
+        return wheelTurn;
+    }
+
+    public int getLeftWall() {
+        return leftWall;
+    }
+
+    public int getRightWall() {
+        return rightWall;
     }
 
     @Override
@@ -23,31 +39,21 @@ public class CodeRaceState implements State, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CodeRaceState that = (CodeRaceState) o;
+        CodeRaceState state = (CodeRaceState) o;
 
-        if (x != that.x) return false;
-        if (y != that.y) return false;
-        if (speedX != that.speedX) return false;
-        return speedY == that.speedY;
+        if (targetDirection != state.targetDirection) return false;
+        if (wheelTurn != state.wheelTurn) return false;
+        if (leftWall != state.leftWall) return false;
+        return rightWall == state.rightWall;
 
     }
 
     @Override
     public int hashCode() {
-        int result = x;
-        result = 31 * result + y;
-        result = 31 * result + speedX;
-        result = 31 * result + speedY;
+        int result = targetDirection;
+        result = 31 * result + wheelTurn;
+        result = 31 * result + leftWall;
+        result = 31 * result + rightWall;
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                "x=" + x +
-                ", y=" + y +
-                ", speedX=" + speedX +
-                ", speedY=" + speedY +
-                '}';
     }
 }

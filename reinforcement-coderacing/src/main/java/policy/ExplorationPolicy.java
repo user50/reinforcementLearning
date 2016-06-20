@@ -1,33 +1,33 @@
 package policy;
 
-import trivial.CodeRacingAction;
+import trivial.CodeRaceAction;
 import com.example.common.Strategy;
 import trivial.CodeRaceState;
 
 import java.util.List;
 
-public class ExplorationPolicy implements Strategy<CodeRaceState, CodeRacingAction> {
+public class ExplorationPolicy implements Strategy<CodeRaceState, CodeRaceAction> {
 
-    Strategy<CodeRaceState, CodeRacingAction> strategy;
-    List<CodeRacingAction> actions;
+    Strategy<CodeRaceState, CodeRaceAction> strategy;
+    List<CodeRaceAction> actions;
 
-    public ExplorationPolicy(Strategy<CodeRaceState, CodeRacingAction> strategy, List<CodeRacingAction> actions) {
+    public ExplorationPolicy(Strategy<CodeRaceState, CodeRaceAction> strategy, List<CodeRaceAction> actions) {
         this.strategy = strategy;
         this.actions = actions;
     }
 
     @Override
-    public double calculate(CodeRaceState state, CodeRacingAction action) {
+    public double calculate(CodeRaceState state, CodeRaceAction action) {
         return 0;
     }
 
 
     int tick = 0;
-    CodeRacingAction action;
+    CodeRaceAction action;
     @Override
-    public CodeRacingAction generate(CodeRaceState state) {
-        if (Math.random()>1) {
-            tick = 10;
+    public CodeRaceAction generate(CodeRaceState state) {
+        if (Math.random()>0.99) {
+            tick = 4;
 
             action = actions.get((int) (Math.random() * actions.size()));
         }
@@ -41,7 +41,7 @@ public class ExplorationPolicy implements Strategy<CodeRaceState, CodeRacingActi
     }
 
     @Override
-    public void update(CodeRaceState state, CodeRacingAction action) {
+    public void update(CodeRaceState state, CodeRaceAction action) {
 
     }
 }

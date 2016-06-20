@@ -1,9 +1,9 @@
 package policy;
 
-import trivial.CodeRacingAction;
+import trivial.CodeRaceAction;
 import trivial.CodeRaceState;
 
 public interface Policy {
 
-    CodeRacingAction get(CodeRaceState state);
+    CodeRaceAction get(CodeRaceState state);
 }

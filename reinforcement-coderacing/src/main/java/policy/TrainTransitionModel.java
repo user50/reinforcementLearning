@@ -1,36 +1,36 @@
 package policy;
 
-import trivial.CodeRacingAction;
-import action.CodeRacingTransitionModel;
+import trivial.CodeRaceAction;
+import action.CodeRaceTransitionModel;
 import com.example.common.Strategy;
 import trivial.CodeRaceState;
 
-public class TrainTransitionModel implements Strategy<CodeRaceState, CodeRacingAction> {
+public class TrainTransitionModel implements Strategy<CodeRaceState, CodeRaceAction> {
 
-    Strategy<CodeRaceState, CodeRacingAction> strategy;
-    CodeRacingTransitionModel transitionModel;
+    Strategy<CodeRaceState, CodeRaceAction> strategy;
+    CodeRaceTransitionModel transitionModel;
 
     CodeRaceState preState;
-    CodeRacingAction preAction;
+    CodeRaceAction preAction;
 
-    public TrainTransitionModel(Strategy<CodeRaceState, CodeRacingAction> strategy, CodeRacingTransitionModel transitionModel) {
+    public TrainTransitionModel(Strategy<CodeRaceState, CodeRaceAction> strategy, CodeRaceTransitionModel transitionModel) {
         this.strategy = strategy;
         this.transitionModel = transitionModel;
     }
 
     @Override
-    public double calculate(CodeRaceState state, CodeRacingAction action) {
+    public double calculate(CodeRaceState state, CodeRaceAction action) {
         return strategy.calculate(state, action);
     }
 
     @Override
-    public CodeRacingAction generate(CodeRaceState state) {
+    public CodeRaceAction generate(CodeRaceState state) {
         if (preState != null)
         {
             transitionModel.update(preState, preAction, state);
         }
 
-        CodeRacingAction action = strategy.generate(state);
+        CodeRaceAction action = strategy.generate(state);
 
         preState = state;
         preAction = action;
@@ -39,7 +39,7 @@ public class TrainTransitionModel implements Strategy<CodeRaceState, CodeRacingA
     }
 
     @Override
-    public void update(CodeRaceState state, CodeRacingAction action) {
+    public void update(CodeRaceState state, CodeRaceAction action) {
         strategy.update(state, action);
     }
 }

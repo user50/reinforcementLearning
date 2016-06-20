@@ -1,4 +1,4 @@
-package abstractions;
+package trivial;
 
 import model.Car;
 import model.Game;
@@ -10,7 +10,7 @@ import model.World;
  * Каждая пользовательская стратегия должна реализовывать этот интерфейс.
  * Может отсутствовать в некоторых языковых пакетах, если язык не поддерживает интерфейсы.
  */
-public interface CodeRacingStrategy {
+public interface CodeRaceController {
     /**
      * Основной метод стратегии, осуществляющий управление кодемобилем.
      * Вызывается каждый тик для каждого кодемобиля.
@@ -21,4 +21,5 @@ public interface CodeRacingStrategy {
      * @param move  Результатом работы метода является изменение полей данного объекта.
      */
     void move(Car self, World world, Game game, Move move);
+
 }

@@ -1,7 +1,7 @@
 package math;
 
 import action.Actions;
-import trivial.CodeRacingAction;
+import trivial.CodeRaceAction;
 import com.example.common.StateAction;
 import com.example.common.table.ExponentialMeanStrategy;
 import com.example.common.table.TableFunction;
@@ -25,7 +25,7 @@ public class SomeTest {
         Set<CodeRaceState> states = tableFunction.getTable().keySet().stream().map(step -> (CodeRaceState) step.getState()).collect(Collectors.toSet());
 
         for (CodeRaceState state : states) {
-            for (CodeRacingAction action : Actions.getActions()) {
+            for (CodeRaceAction action : Actions.getActions()) {
                 StateAction stateAction = new StateAction(state, action);
                 if (table.containsKey(stateAction))
                     System.out.println(state +" : "+action+"; expected "+table.get(stateAction));

@@ -1,6 +1,6 @@
 package policy;
 
-import trivial.CodeRacingAction;
+import trivial.CodeRaceAction;
 import trivial.CodeRaceState;
 
 public class StateActionHistory implements Policy {
@@ -13,7 +13,7 @@ public class StateActionHistory implements Policy {
     }
 
     @Override
-    public CodeRacingAction get(CodeRaceState state) {
+    public CodeRaceAction get(CodeRaceState state) {
         return null;
     }
 }

@@ -1,13 +1,13 @@
 package action;
 
-import trivial.CodeRacingAction;
+import trivial.CodeRaceAction;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Actions {
 
-    public static List<CodeRacingAction> getActions()
+    public static List<CodeRaceAction> getActions()
     {
         List<DeltaWheelTurn> deltaWheelTurns = new ArrayList<>();
         deltaWheelTurns.add(null);
@@ -21,11 +21,11 @@ public class Actions {
         deltaEnginePowers.add(null);
 
 
-        List<CodeRacingAction> actions = new ArrayList<>();
+        List<CodeRaceAction> actions = new ArrayList<>();
 
         for (DeltaWheelTurn deltaWheelTurn : deltaWheelTurns) {
             for (DeltaEnginePower deltaEnginePower : deltaEnginePowers) {
-                actions.add(new CodeRacingAction(deltaWheelTurn, deltaEnginePower));
+                actions.add(new CodeRaceAction(deltaWheelTurn == null ? 0 : deltaWheelTurn.getDeltaWheelTurn()));
             }
         }
 

@@ -2,7 +2,8 @@ apply from: "$rootProject.projectDir/build.gradle"
 
 dependencies {
     compile 'com.google.inject:guice:3.0'
-    compile 'com.google.inject:guice:3.0'
+    compile "mysql:mysql-connector-java:5.1.18"
+    compile 'commons-dbcp:commons-dbcp:1.4'
 
     compile project(":reinforcement-common")
 

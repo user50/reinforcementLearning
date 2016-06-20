@@ -11,6 +11,14 @@ public class CumulativeStrategy<Arg> implements UpdateTableStrategy<Arg> {
     Map<Arg, Double> totalRewardPerArg = new HashMap<Arg, Double>();
     Map<Arg, Integer> totalVisits = new HashMap<Arg, Integer>();
 
+    public CumulativeStrategy(Map<Arg, Double> totalRewardPerArg, Map<Arg, Integer> totalVisits) {
+        this.totalRewardPerArg = totalRewardPerArg;
+        this.totalVisits = totalVisits;
+    }
+
+    public CumulativeStrategy() {
+    }
+
     @Override
     public void update(Map<Arg, Double> table, Arg arg, double value) {
         if (!totalRewardPerArg.containsKey(arg))

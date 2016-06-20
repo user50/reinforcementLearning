@@ -1,50 +1,34 @@
-import abstractions.CodeRacingStrategy;
+import trivial.CodeRaceController;
+import com.example.common.Strategy;
 import com.example.montecarlo.Step;
 import math.Vector;
 import model.*;
-import trivial.CodeRacingAction;
+import trivial.CodeRaceAction;
 import trivial.CodeRaceState;
 
 import java.util.*;
 
 import static math.VectorAlgebra.*;
 
-public final class MyStrategy implements CodeRacingStrategy {
+public final class MyController implements CodeRaceController {
 
-    com.example.common.Strategy<CodeRaceState, CodeRacingAction> policy;
+    Strategy<CodeRaceState, CodeRaceAction> policy;
     int score = 0;
     CodeRaceState preState;
-    CodeRacingAction preAction;
+    CodeRaceAction preAction;
 
-    List<Step<CodeRaceState, CodeRacingAction>> steps = new ArrayList<>();
+    List<Step<CodeRaceState, CodeRaceAction>> steps = new ArrayList<>();
 
-    public MyStrategy(com.example.common.Strategy<CodeRaceState, CodeRacingAction> policy) {
+    public MyController(Strategy<CodeRaceState, CodeRaceAction> policy) {
         this.policy = policy;
     }
 
     @Override
     public void move(Car self, World world, Game game, Move move) {
-        int x = (int)self.getX()/400;
-        int y = (int)self.getY()/400;
-        int speedX = 0; //LogScale.index(self.getSpeedX(), 0.05, 10, 4);
-        int speedY = 0;// LogScale.index(self.getSpeedY(), 0.05, 10, 4);
 
-        CodeRaceState state = new CodeRaceState(x, y, speedX, speedY);
-        CodeRacingAction action = policy.generate(state);
-
-        move.setWheelTurn(self.getWheelTurn() + action.getDeltaWheelTurn());
-        move.setEnginePower(0.1);
-
-        if (preState != null && world.getTick() > 181) {
-            double reward  = getReward(world);
-            steps.add(new Step(preState, preAction, state, reward));
-        }
-
-        preState = state;
-        preAction = action;
     }
 
-    public List<Step<CodeRaceState, CodeRacingAction>> getSteps() {
+    public List<Step<CodeRaceState, CodeRaceAction>> getSteps() {
         return steps;
     }
 

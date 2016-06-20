@@ -2,29 +2,28 @@ package policy;
 
 import action.*;
 import com.example.common.Strategy;
-import trivial.CodeRacingAction;
+import trivial.CodeRaceAction;
 import trivial.CodeRaceState;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
-public class DefaultStrategy implements Strategy<CodeRaceState, CodeRacingAction> {
+public class DefaultStrategy implements Strategy<CodeRaceState, CodeRaceAction> {
 
-    List<CodeRacingAction> actions = Actions.getActions();
+    List<CodeRaceAction> actions = Actions.getActions();
 
     @Override
-    public double calculate(CodeRaceState state, CodeRacingAction action) {
+    public double calculate(CodeRaceState state, CodeRaceAction action) {
         throw new NotImplementedException();
     }
 
     @Override
-    public CodeRacingAction generate(CodeRaceState state) {
-        return new CodeRacingAction(null, new DeltaEnginePower(DeltaEnginePowerLevel.maximal, true));
-//        return actions.get((int)(Math.random() * actions.size()));
+    public CodeRaceAction generate(CodeRaceState state) {
+        return new CodeRaceAction(0.0);
     }
 
     @Override
-    public void update(CodeRaceState state, CodeRacingAction action) {
+    public void update(CodeRaceState state, CodeRaceAction action) {
         throw new NotImplementedException();
     }
 }
