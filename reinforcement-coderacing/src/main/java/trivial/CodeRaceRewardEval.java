@@ -1,7 +1,7 @@
 package trivial;
 
 import abstractions.RewardEvaluator;
-import model.*;
+import com.coderacing.model.*;
 
 public class CodeRaceRewardEval implements RewardEvaluator {
 

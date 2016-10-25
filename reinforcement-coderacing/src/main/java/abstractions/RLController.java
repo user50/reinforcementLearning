@@ -4,10 +4,10 @@ import com.example.common.Action;
 import com.example.common.State;
 import com.example.common.Strategy;
 import com.example.montecarlo.Step;
-import model.Car;
-import model.Game;
-import model.Move;
-import model.World;
+import com.coderacing.model.Car;
+import com.coderacing.model.Game;
+import com.coderacing.model.Move;
+import com.coderacing.model.World;
 import trivial.CodeRaceController;
 
 import java.util.ArrayList;

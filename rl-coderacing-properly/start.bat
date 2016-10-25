@@ -1,0 +1,1 @@
+cd rl-coderacing-properly\runner && local-runner.bat

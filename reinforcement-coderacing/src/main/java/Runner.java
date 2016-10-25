@@ -1,8 +1,8 @@
 import trivial.CodeRaceController;
-import model.Car;
-import model.Game;
-import model.Move;
-import model.PlayerContext;
+import com.coderacing.model.Car;
+import com.coderacing.model.Game;
+import com.coderacing.model.Move;
+import com.coderacing.model.PlayerContext;
 
 import java.io.IOException;
 

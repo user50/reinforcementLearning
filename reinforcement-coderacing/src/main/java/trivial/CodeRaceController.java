@@ -1,9 +1,9 @@
 package trivial;
 
-import model.Car;
-import model.Game;
-import model.Move;
-import model.World;
+import com.coderacing.model.Car;
+import com.coderacing.model.Game;
+import com.coderacing.model.Move;
+import com.coderacing.model.World;
 
 /**
  * Стратегия --- интерфейс, содержащий описание методов искусственного интеллекта кодемобиля.

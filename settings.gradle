@@ -5,4 +5,6 @@ include 'reinforcement-common'
 include 'reinforcement-blackjack'
 include 'reinforcement-poker'
 include 'reinforcement-coderacing'
+include 'rl-coderacing-properly'
+
 

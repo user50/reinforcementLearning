@@ -2,7 +2,7 @@ import trivial.CodeRaceController;
 import com.example.common.Strategy;
 import com.example.montecarlo.Step;
 import math.Vector;
-import model.*;
+import com.coderacing.model.*;
 import trivial.CodeRaceAction;
 import trivial.CodeRaceState;
 
