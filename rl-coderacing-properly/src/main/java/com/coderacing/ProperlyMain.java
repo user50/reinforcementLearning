@@ -4,7 +4,7 @@ import com.coderacing.rl.MyController;
 
 import java.io.IOException;
 
-public class Main {
+public class ProperlyMain {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Process p = Runtime.getRuntime().exec("rl-coderacing-properly\\start.bat");
